@@ -7,7 +7,6 @@ import {
   fetchProfile,
   updateProfile,
 } from "../actions/authActions";
-// import { pipSaveProfile } from "../../Auth/pip";
 import { clearAuth, saveProfile } from "../../utils/pip";
 
 const initialState = {
@@ -25,7 +24,7 @@ export const authSlice = createSlice({
     },
     handleLogout: (state, action) => {
       state.isLogin = action?.payload;
-      clearAuth("EXPERT");
+      clearAuth();
     },
   },
   extraReducers: (builder) => {
@@ -82,7 +81,7 @@ export const authSlice = createSlice({
       const { data, success } = action?.payload ?? {};
       state.profile = success ? data : {};
       if (success) {
-        saveProfile("EXPERT",data);
+        saveProfile(data);
       }
       state.isLoading = false;
     });

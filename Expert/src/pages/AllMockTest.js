@@ -1,22 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Siderbar from "../layout/sidebar";
 import Header from "../layout/header";
 import { pageRoutes } from "../routes/path";
-
+import { useDispatch, useSelector } from "react-redux";
+import CategorySelect from "../components/formInputs/CategorySelect";
+import {
+  fetchCategoryList,
+  fetchMockTestList,
+} from "../redux/actions/flashCardActions";
 
 function AllMockTest() {
-
-const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state?.flashCardReducer);
+  const list = useSelector((state) => state?.flashCardReducer?.mockList);
+  const [mockList, setMockList] = useState(list);
+  const [statusFilter, setStatusFilter] = useState("");
+  const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(fetchCategoryList());
+    dispatch(fetchMockTestList());
+  }, []);
   return (
     <>
       <main>
-       {/* Expert Sidebaar */}
-    <Siderbar/>
+        {/* Expert Sidebaar */}
+        <Siderbar />
         <div className="ct_right_content">
-           {/* expert header */}
-           <Header/>
+          {/* expert header */}
+          <Header />
           <div className="ct_inner_dashbaord_main">
             <div className="ct_white_bg ">
               <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
@@ -24,11 +36,13 @@ const navigate = useNavigate();
                 <div className="d-flex align-items-center gap-3">
                   <div className="ct_category_select_2">
                     Category :
-                    <select>
-                      <option value="">e-commerce</option>
-                      <option value="">e-commerce</option>
-                    </select>
+                    <CategorySelect
+                      options={categories}
+                      value={statusFilter}
+                      onChange={setStatusFilter}
+                    />
                   </div>
+
                   <div className="ct_category_select_2">
                     Sorted by :
                     <select>
@@ -39,7 +53,7 @@ const navigate = useNavigate();
                   <div>
                     <a
                       href="javascript:void(0)"
-                      onClick={()=>navigate(pageRoutes?.newMocktest)}
+                      onClick={() => navigate(pageRoutes?.newMocktest)}
                       className="ct_blue_btn ct_btn_h_48"
                     >
                       + Create New Mock Test
@@ -60,6 +74,33 @@ const navigate = useNavigate();
                     </tr>
                   </thead>
                   <tbody>
+                    {mockList?.length === 0 && (
+                      <div className="text-center py-4">
+                        No flash cards found.
+                      </div>
+                    )}
+                    {/* {
+                      mockList?.map((item,index)=>{
+                        return (
+                          <tr key={index}>
+                            <td>
+                              <a href="javascript:void(0)">{item.name}</a>
+                            </td>
+                            <td>{item.category?.name}</td>
+                            <td>{item.duration}</td>
+                            <td>{item.totalQuestions}</td>
+                            <td>{item.marks}</td>
+                            <td>
+                              {item.status === 'active'? (
+                                <span className="badge bg-success">Active</span>
+                              ) : (
+                                <span className="badge bg-danger">Inactive</span>
+                              )}
+                            </td>
+                          </tr>
+                        )
+                      })
+                    } */}
                     <tr>
                       <td>Rustic</td>
                       <td>Coding</td>

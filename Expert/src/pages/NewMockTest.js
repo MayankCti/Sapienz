@@ -3,10 +3,42 @@ import { useNavigate } from "react-router-dom";
 import Siderbar from "../layout/sidebar";
 import Header from "../layout/header";
 import { pageRoutes } from "../routes/path";
+import FlashCard from "../components/FlashCard";
 
 function NewMockTest() {
   const navigate = useNavigate();
   const [isTestQuestion, setIsTestQuestion] = useState(false);
+  const [selectedCards, setSelectedCards] = useState([]);
+  const flashCards = [
+    {
+      id: 1,
+      title: 'Flash Card 223',
+      question: 'Question 1',
+      category: 'History',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?',
+      options: [
+        { label: 'Option 1', defaultChecked: false },
+        { label: 'Option 2', defaultChecked: false },
+        { label: 'Option 3', defaultChecked: false },
+        { label: 'Option 4', defaultChecked: false },
+      ],
+    },
+    {
+      id: 2,
+      title: 'Flash Card 224',
+      question: 'Question 2',
+      category: 'History',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?',
+      options: [
+        { label: 'Option 1', defaultChecked: true },
+        { label: 'Option 2', defaultChecked: false },
+        { label: 'Option 3', defaultChecked: false },
+        { label: 'Option 4', defaultChecked: false },
+      ],
+    },
+    // Add more card objects here
+  ];
+
   return (
     <>
       <main>
@@ -129,6 +161,15 @@ function NewMockTest() {
                 </div>
               </div>
               <div className="row ct_flash_card_scroll">
+           
+                {/* {flashCards.map((card) => (
+                  <FlashCard
+                    key={card.id}
+                    card={card}
+                    isActive={card.id === 2}
+                  />
+                ))} */}
+             
                 <div className="col-xl-4 mb-4">
                   {/* Add this class ct_flash_card_active when card is selected */}
                   <div className="ct_flash_card pb-0">
@@ -142,7 +183,7 @@ function NewMockTest() {
                     </div>
                     <div className="d-flex align-items-center justify-content-between gap-2 my-3 ">
                       <p className="mb-0 ct_fw_600 ct_blue_text ct_fs_14">
-                        Question 20
+                        Question 1
                       </p>
                       <p className="mb-0 ct_fw_600 ct_blue_text ct_fs_14">
                         History
@@ -154,9 +195,6 @@ function NewMockTest() {
                       aliqua?
                     </p>
                     <div className="mt-5">
-                      <p className="mb-0 ct_fw_600 ct_blue_text ct_fs_14">
-                        Choose your answer
-                      </p>
                       <div className="row mt-2">
                         <div className="col-md-6 mb-2">
                           <div>
@@ -165,7 +203,7 @@ function NewMockTest() {
                               name="radio-group"
                               id="radio1"
                               type="radio"
-                              defaultChecked=""
+                              defaultChecked={false}
                             />
                             <label className="radio-label" htmlFor="radio1">
                               <span className="radio-inner-circle" />
@@ -232,7 +270,7 @@ function NewMockTest() {
                     </div>
                     <div className="d-flex align-items-center justify-content-between gap-2 my-3 ">
                       <p className="mb-0 ct_fw_600 ct_blue_text ct_fs_14">
-                        Question 20
+                        Question 2
                       </p>
                       <p className="mb-0 ct_fw_600 ct_blue_text ct_fs_14">
                         History
@@ -244,9 +282,6 @@ function NewMockTest() {
                       aliqua?
                     </p>
                     <div className="mt-5">
-                      <p className="mb-0 ct_fw_600 ct_blue_text ct_fs_14">
-                        Choose your answer
-                      </p>
                       <div className="row mt-2">
                         <div className="col-md-6 mb-2">
                           <div>
@@ -255,7 +290,7 @@ function NewMockTest() {
                               name="radio-group"
                               id="radio1"
                               type="radio"
-                              defaultChecked=""
+                              defaultChecked={true}
                             />
                             <label className="radio-label" htmlFor="radio1">
                               <span className="radio-inner-circle" />

@@ -5,11 +5,11 @@ import { BASE_URL } from "../../routes/endPoints";
 import { getAuth } from "../../utils/pip";
 
 export const API_REQUEST = async (props) => {
-  const { url, method, data, headers, params, isErrorToast = true } = props;
-  const token = getAuth("EXPERT");
+  const { BASE =BASE_URL, url, method, data, headers, params, isErrorToast = true } = props;
+  const token = getAuth();
   
   const requestOptions = {
-    url: BASE_URL + url,
+    url: BASE + url,
     method,
     headers: {
       Authorization: `Bearer ${token}`,

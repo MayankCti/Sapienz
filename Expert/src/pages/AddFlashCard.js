@@ -1,36 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Siderbar from "../layout/sidebar";
 import Header from "../layout/header";
 import { pageRoutes } from "../routes/path";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCategoryList } from "../redux/actions/flashCardActions";
+import { getCapitalization } from "../utils/pip";
+import CategorySelect from "../components/formInputs/CategorySelect";
 
 function AddFlashCard() {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state?.flashCardReducer);
+  const [statusFilter, setStatusFilter] = useState("");
+  useEffect(() => {
+    dispatch(fetchCategoryList());
+  }, []);
   return (
     <>
       <main>
         {/* Expert Sidebaar */}
-        <Siderbar/>
+        <Siderbar />
         <div className="ct_right_content">
           {/* expert header */}
-          <Header/>
+          <Header />
 
           <div className="ct_inner_dashbaord_main">
             <div className="ct_white_bg p-4">
               <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
                 <h4 className="ct_fs_24 ps-4 ct_fw_600">Flash Card Details</h4>
-                <div className="d-flex align-items-center gap-3">
-                  <div className="ms-4 d-flex align-items-center gap-3">
-                    <a
-                      href="javascript:void(0)"
-                      onClick={()=>navigate(pageRoutes?.flashCard)}
-                      className="ct_blue_btn py-3 ct_btn_h_48"
-                    >
-                      Save
-                    </a>
-                  </div>
-                </div>
               </div>
               <div className="row">
                 <div className="col-md-6 mx-auto">
@@ -124,11 +122,13 @@ function AddFlashCard() {
                               Category
                               <span className="ct_required_text">*</span>
                             </label>
-                            <select className="ct_input form-control">
-                              <option value="">Languages</option>
-                              <option value="">Languages</option>
-                              <option value="">Languages</option>
-                            </select>
+                            <CategorySelect
+                            className={"ct_input form-control"}
+                              options={categories}
+                              value={statusFilter}
+                              onChange={setStatusFilter}
+                            />
+                            
                           </div>
                         </div>
                         <div className="col-md-12 mb-4">
@@ -145,6 +145,17 @@ function AddFlashCard() {
                             </select>
                           </div>
                         </div>
+                        <div className="d-flex align-items-center gap-3">
+                          <div className="ms-4 d-flex align-items-center gap-3">
+                            <a
+                              href="javascript:void(0)"
+                              onClick={() => navigate(pageRoutes?.flashCard)}
+                              className="ct_blue_btn py-3 ct_btn_h_48"
+                            >
+                              Save
+                            </a>
+                          </div>
+                        </div>
                       </div>
                     </form>
                   </div>
@@ -159,8 +170,3 @@ function AddFlashCard() {
 }
 
 export default AddFlashCard;
-
-
-
-
-

@@ -3,7 +3,7 @@ import AddFlashCard from "../pages/AddFlashCard";
 import AllMockTest from "../pages/AllMockTest";
 import ChangePassword from "../pages/ChangePassword";
 import EditFlashCard from "../pages/EditFlashCard";
-import FlashCard from "../pages/FlashCard";
+import FlashCard from "../pages/FlashCardList";
 import NewMockTest from "../pages/NewMockTest";
 import Profile from "../pages/Profile";
 import StudentDetails from "../pages/StudentDetails";
@@ -65,55 +65,55 @@ const expertRoutes = [
     name: "addFlashCard",
     path: pageRoutes?.addFlashCard,
     element: <AddFlashCard />,
-    isPrivate: false,
+    isPrivate: true,
   },
   {
     name: "allMockTest",
     path: pageRoutes?.allMockTest,
     element: <AllMockTest />,
-    isPrivate: false,
+    isPrivate: true,
   },
   {
     name: "changePassword",
     path: pageRoutes?.changePassword,
     element: <ChangePassword/>,
-    isPrivate: false,
+    isPrivate: true,
   },
   {
     name: "editFlashCard",
     path: pageRoutes?.editFlashCard,
     element: <EditFlashCard/>,
-    isPrivate: false,
+    isPrivate: true,
   }, 
     {
     name: "flashCard",
     path: pageRoutes?.flashCard,
     element: <FlashCard/>,
-    isPrivate: false,
+    isPrivate: true,
   }, 
   {
   name: "newMocktest",
   path: pageRoutes?.newMocktest,
   element: <NewMockTest/>,
-  isPrivate: false,
+  isPrivate: true,
 },
 {
 name: "profile",
 path: pageRoutes?.profile,
 element: <Profile/>,
-isPrivate: false,
+isPrivate: true,
 },
 {
 name: "studentDetails",
 path: pageRoutes?.studentDetails,
 element: <StudentDetails/>,
-isPrivate: false,
+isPrivate: true,
 },
 {
 name: "student",
 path: pageRoutes?.student,
 element: <Student/>,
-isPrivate: false,
+isPrivate: true,
 },
 ];
 
