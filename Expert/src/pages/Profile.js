@@ -42,11 +42,14 @@ function Profile() {
                 <div className="col-md-6">
                   <form action="" className="ps-md-4">
                     <div className="d-flex align-items-center gap-3">
+                     <label for="ct_profile_img_1" style={{cursor:"pointer"}}>
+                      <input type="file" className="d-none" id="ct_profile_img_1"/>
                       <img
                         src="/assets/img/user_profile.png"
                         alt=""
                         className="ct_img_66"
                       />
+                     </label>
                       <div>
                         <h5 className="ct_fs_20 mb-1">Moni Roy</h5>
                         <p className="mb-0">Admin</p>

@@ -4,7 +4,7 @@ import { getAuth } from '../utils/pip';
 import { pageRoutes } from '../routes/path';
 
 const PrivateRoute = ({ children }) => {
-    const isAuth = getAuth("EXPERT");
+    const isAuth = getAuth();
     return (
         isAuth ? children : <Navigate to={pageRoutes?.login} />
     )

@@ -19,7 +19,7 @@ export const expertLogin = createAsyncThunk("auth-login", async (props) => {
       data: payload,
       isErrorToast: true,
     });
-    setAuth("EXPERT", response?.token);
+    setAuth(response?.token);
     callback(response);
     return response;
   } catch (error) {
