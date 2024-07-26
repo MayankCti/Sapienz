@@ -54,9 +54,9 @@ function FlashCardList() {
                   <CategorySelect
                     options={categories}
                     value={statusFilter}
+                    valuefilter={true}
                     onChange={setStatusFilter}
                   />
-                  
                 </div>
                 <div className="d-flex align-items-center gap-3">
                   <div className="d-flex align-items-center gap-3">
@@ -72,15 +72,20 @@ function FlashCardList() {
               </div>
 
               <div className="row ct_flash_card_scroll">
-                {flashCardData?.length === 0 && (
+                {flashCardData?.length <= 0 && (
                   <div className="text-center py-4">No flash cards found.</div>
                 )}
                 {flashCardData?.map((card, index) => (
+                  <>
                   <FlashCard
                     card={card}
-                    index={index}
-                    onClick={() => navigate(pageRoutes?.editFlashCard)}
-                  />
+                    index={index + 1}
+                    onClick={() => {
+                      localStorage.setItem('flashCard',card ? JSON?.stringify(card) : null)
+                      navigate(pageRoutes?.editFlashCard);
+                    }}
+                    />
+                    </>
                 ))}
               </div>
             </div>

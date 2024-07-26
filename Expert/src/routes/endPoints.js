@@ -14,7 +14,10 @@ export const profileAPI = "profile"
 export const fetchCategoryAPI = "fetch_category"
 
 // flash card   
- export const fetchFlashCardAPI = "fetchFlashCard"
+ export const fetchFlashCardAPI = "fetchFlashCard"  // list
+ export const createFlashCardAPI = "createFlashCard" // create
+ export const editFlashCardAPI = "editFlashCard" // update
+ export const deleteFlashCardAPI = "deleteFlashCard" // delete
  
  // mock test
  export const fetchMockTestAPI = "fetchMockTest"

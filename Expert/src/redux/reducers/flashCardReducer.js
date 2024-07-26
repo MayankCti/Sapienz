@@ -1,5 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchCategoryList, fetchFlashCardList, fetchMockTestList } from "../actions/flashCardActions";
+import {
+  fetchCategoryList,
+  fetchFlashCardList,
+  fetchMockTestList,
+  addFlashCard,
+  updateFlashCard,
+  deleteFlashCard,
+} from "../actions/flashCardActions";
 
 const initialState = {
   isLoading: true,
@@ -26,33 +33,62 @@ const flashCardSlice = createSlice({
     builder.addCase(fetchFlashCardList.rejected, (state, action) => {
       state.isLoading = false;
     });
-    
+    // update-flash-card
+    builder.addCase(updateFlashCard.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(updateFlashCard.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(updateFlashCard.rejected, (state, action) => {
+      state.isLoading = false;
+    });
+    // delete-flash-card
+    builder.addCase(deleteFlashCard.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(deleteFlashCard.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteFlashCard.rejected, (state, action) => {
+      state.isLoading = false;
+    });
     // fetch-category-list
     builder.addCase(fetchCategoryList.fulfilled, (state, action) => {
-        const { data } = action?.payload || {};
-        state.categories = data;
-        state.isLoading = false;
+      const { data } = action?.payload || {};
+      state.categories = data;
+      state.isLoading = false;
     });
     builder.addCase(fetchCategoryList.pending, (state, action) => {
-        state.isLoading = true;
+      state.isLoading = true;
     });
     builder.addCase(fetchCategoryList.rejected, (state, action) => {
-        state.isLoading = false;
-      });
-  
-      // fetch-mock-list
-      builder.addCase(fetchMockTestList.fulfilled, (state, action) => {
-        const { data } = action?.payload || {};
-        state.mockList = data;
-        state.isLoading = false;
-      });
-      builder.addCase(fetchMockTestList.pending, (state, action) => {
-        state.isLoading = true;
-      });
-      builder.addCase(fetchMockTestList.rejected, (state, action) => {
-        state.isLoading = false;
-      });
-    },
+      state.isLoading = false;
+    });
+    // add-flash-card
+    builder.addCase(addFlashCard.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(addFlashCard.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(addFlashCard.rejected, (state, action) => {
+      state.isLoading = false;
+    });
+
+    // fetch-mock-list
+    builder.addCase(fetchMockTestList.fulfilled, (state, action) => {
+      const { data } = action?.payload || {};
+      state.mockList = data;
+      state.isLoading = false;
+    });
+    builder.addCase(fetchMockTestList.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchMockTestList.rejected, (state, action) => {
+      state.isLoading = false;
+    });
+  },
 });
 
 export default flashCardSlice.reducer;

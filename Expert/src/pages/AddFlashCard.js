@@ -4,18 +4,72 @@ import Siderbar from "../layout/sidebar";
 import Header from "../layout/header";
 import { pageRoutes } from "../routes/path";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCategoryList } from "../redux/actions/flashCardActions";
-import { getCapitalization } from "../utils/pip";
+import {
+  addFlashCard,
+  fetchCategoryList,
+} from "../redux/actions/flashCardActions";
 import CategorySelect from "../components/formInputs/CategorySelect";
+import SimpleReactValidator from "simple-react-validator";
+import { message } from "antd";
 
 function AddFlashCard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const validator = new SimpleReactValidator({
+    className: "text-danger",
+  });
+  const [, forceUpdate] = useState();
   const { categories } = useSelector((state) => state?.flashCardReducer);
-  const [statusFilter, setStatusFilter] = useState("");
+  const [categoryId, setCategoryId] = useState();
+  const [type, setType] = useState("Multi Options");
+  const [question, setQuestion] = useState("");
+  const [option1, setOption1] = useState("");
+  const [option2, setOption2] = useState("");
+  const [option3, setOption3] = useState("");
+  const [option4, setOption4] = useState("");
+  const [answer, setAnswer] = useState("");
+
+  const handleSubmit = (event) => {
+    console.log();
+    event.preventDefault();
+    if (validator.allValid()) {
+      const callback = (response) => {
+        if (response?.success) {
+          navigate(pageRoutes?.flashCard);
+        }
+      };
+
+      const payload =
+        type == "Multi Options"
+          ? {
+              flash_card_type: type,
+              question,
+              option1,
+              option2,
+              option3,
+              option4,
+              categoryId: categoryId ?? categories[0]?.id,
+              correct_answer: answer ?? "option1",
+            }
+          : {
+              flash_card_type: type,
+              question,
+              correct_answer: answer,
+              categoryId: categoryId ?? categories[0]?.id,
+            };
+      dispatch(addFlashCard({ payload, callback }));
+    } else {
+      validator.showMessages();
+      message.error("Please fill out all fields");
+      console.log(validator?.errorMessages);
+      forceUpdate(1);
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchCategoryList());
   }, []);
+
   return (
     <>
       <main>
@@ -33,7 +87,7 @@ function AddFlashCard() {
               <div className="row">
                 <div className="col-md-6 mx-auto">
                   <div className="ct_border_1_black">
-                    <form action="">
+                    <form onSubmit={handleSubmit}>
                       <h4 className="ct_fs_24 text-center ct_fw_600">
                         New Card Details
                       </h4>
@@ -43,10 +97,19 @@ function AddFlashCard() {
                             <label htmlFor="" className="mb-2 ct_fw_500">
                               Type <span className="ct_required_text">*</span>
                             </label>
-                            <select className="ct_input form-control">
-                              <option value="">Multi Options</option>
-                              <option value="">Single Option</option>
+                            <select
+                              className="ct_input form-control"
+                              value={type}
+                              onChange={(e) => setType(e.target.value)}
+                            >
+                              <option value="Multi Options">
+                                Multi Options
+                              </option>
+                              <option value="Single Option">
+                                Single Option
+                              </option>
                             </select>
+                            {validator.message("type", type, "required")}
                           </div>
                         </div>
                         <div className="col-md-12 mb-4">
@@ -58,64 +121,120 @@ function AddFlashCard() {
                             <textarea
                               className="ct_input form-control h-auto"
                               rows={3}
-                              defaultValue={
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?"
-                              }
+                              value={question}
+                              onChange={(e) => setQuestion(e.target.value)}
                             />
                           </div>
+                          {validator.message("question", question, "required")}
                         </div>
-                        <div className="col-md-6 mb-4">
-                          <div className="form-group">
-                            <label htmlFor="" className="mb-2 ct_fw_500">
-                              Option 1{" "}
-                              <span className="ct_required_text">*</span>
-                            </label>
-                            <input
-                              type="text"
-                              className="ct_input form-control"
-                              placeholder="Answer"
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6 mb-4">
-                          <div className="form-group">
-                            <label htmlFor="" className="mb-2 ct_fw_500">
-                              Option 2{" "}
-                              <span className="ct_required_text">*</span>
-                            </label>
-                            <input
-                              type="text"
-                              className="ct_input form-control"
-                              placeholder="Answer"
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6 mb-4">
-                          <div className="form-group">
-                            <label htmlFor="" className="mb-2 ct_fw_500">
-                              Option 3{" "}
-                              <span className="ct_required_text">*</span>
-                            </label>
-                            <input
-                              type="text"
-                              className="ct_input form-control"
-                              placeholder="Answer"
-                            />
-                          </div>
-                        </div>
-                        <div className="col-md-6 mb-4">
-                          <div className="form-group">
-                            <label htmlFor="" className="mb-2 ct_fw_500">
-                              Option 4{" "}
-                              <span className="ct_required_text">*</span>
-                            </label>
-                            <input
-                              type="text"
-                              className="ct_input form-control"
-                              placeholder="Answer"
-                            />
-                          </div>
-                        </div>
+                        {type == "Multi Options" && (
+                          <>
+                            <div className="col-md-6 mb-4">
+                              <div className="form-group">
+                                <label htmlFor="" className="mb-2 ct_fw_500">
+                                  Option 1{" "}
+                                  <span className="ct_required_text">*</span>
+                                </label>
+                                <input
+                                  type="text"
+                                  name="option1"
+                                  value={option1}
+                                  onChange={(e) => setOption1(e.target.value)}
+                                  className="ct_input form-control"
+                                  placeholder="Answer"
+                                />
+                              </div>
+                              {validator.message(
+                                "option1",
+                                option1,
+                                "required"
+                              )}
+                            </div>
+                            <div className="col-md-6 mb-4">
+                              <div className="form-group">
+                                <label htmlFor="" className="mb-2 ct_fw_500">
+                                  Option 2{" "}
+                                  <span className="ct_required_text">*</span>
+                                </label>
+                                <input
+                                  type="text"
+                                  name="option2"
+                                  value={option2}
+                                  onChange={(e) => setOption2(e.target.value)}
+                                  className="ct_input form-control"
+                                  placeholder="Answer"
+                                />
+                              </div>
+                              {validator.message(
+                                "option2",
+                                option2,
+                                "required"
+                              )}
+                            </div>
+                            <div className="col-md-6 mb-4">
+                              <div className="form-group">
+                                <label htmlFor="" className="mb-2 ct_fw_500">
+                                  Option 3{" "}
+                                  <span className="ct_required_text">*</span>
+                                </label>
+                                <input
+                                  type="text"
+                                  name="option3"
+                                  value={option3}
+                                  onChange={(e) => setOption3(e.target.value)}
+                                  className="ct_input form-control"
+                                  placeholder="Answer"
+                                />
+                              </div>
+                              {validator.message(
+                                "option3",
+                                option3,
+                                "required"
+                              )}
+                            </div>
+                            <div className="col-md-6 mb-4">
+                              <div className="form-group">
+                                <label htmlFor="" className="mb-2 ct_fw_500">
+                                  Option 4{" "}
+                                  <span className="ct_required_text">*</span>
+                                </label>
+                                <input
+                                  type="text"
+                                  name="option4"
+                                  value={option4}
+                                  onChange={(e) => setOption4(e.target.value)}
+                                  className="ct_input form-control"
+                                  placeholder="Answer"
+                                />
+                              </div>
+                              {validator.message(
+                                "option4",
+                                option4,
+                                "required"
+                              )}
+                            </div>
+
+                            <div className="col-md-12 mb-4">
+                              <div className="form-group">
+                                <label htmlFor="" className="mb-2 ct_fw_500">
+                                  Correct Answer
+                                  <span className="ct_required_text">*</span>
+                                </label>
+                                <select
+                                  className="ct_input form-control"
+                                  value={answer}
+                                  onChange={(e) => setAnswer(e.target.value)}
+                                >
+                                  <option value="option1">Option 1</option>
+                                  <option value="option2">Option 2</option>
+                                  <option value="option3">Option 3</option>
+                                  <option value="option4">Option 4</option>
+                                </select>
+                              </div>
+                              {validator.message("answer", answer, "required")}
+                            </div>
+                          </>
+                        )}
                         <div className="col-md-12 mb-4">
                           <div className="form-group">
                             <label htmlFor="" className="mb-2 ct_fw_500">
@@ -123,37 +242,41 @@ function AddFlashCard() {
                               <span className="ct_required_text">*</span>
                             </label>
                             <CategorySelect
-                            className={"ct_input form-control"}
+                              isAll={false}
+                              className={"ct_input form-control"}
                               options={categories}
-                              value={statusFilter}
-                              onChange={setStatusFilter}
+                              value={categoryId}
+                              onChange={setCategoryId}
                             />
-                            
                           </div>
                         </div>
-                        <div className="col-md-12 mb-4">
-                          <div className="form-group">
-                            <label htmlFor="" className="mb-2 ct_fw_500">
-                              Correct Answer
-                              <span className="ct_required_text">*</span>
-                            </label>
-                            <select className="ct_input form-control">
-                              <option value="">Option 1</option>
-                              <option value="">Option 2</option>
-                              <option value="">Option 3</option>
-                              <option value="">Option 4</option>
-                            </select>
+                        {type == "Single Option" && (
+                          <div className="col-md-12 mb-4">
+                            <div className="form-group">
+                              <label htmlFor="" className="mb-2 ct_fw_500">
+                                Answer{" "}
+                                <span className="ct_required_text">*</span>
+                              </label>
+                              <input
+                                type="text"
+                                name="answer"
+                                value={answer}
+                                onChange={(e) => setAnswer(e.target.value)}
+                                className="ct_input form-control"
+                                placeholder="Answer"
+                              />
+                            </div>
+                            {validator.message("answer", answer, "required")}
                           </div>
-                        </div>
+                        )}
                         <div className="d-flex align-items-center gap-3">
                           <div className="ms-4 d-flex align-items-center gap-3">
-                            <a
-                              href="javascript:void(0)"
-                              onClick={() => navigate(pageRoutes?.flashCard)}
+                            <button
+                              type="submit"
                               className="ct_blue_btn py-3 ct_btn_h_48"
                             >
                               Save
-                            </a>
+                            </button>
                           </div>
                         </div>
                       </div>

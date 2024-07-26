@@ -2,7 +2,7 @@ import axios from "axios";
 import { message as toast } from "antd";
 import { pageRoutes } from "../../routes/path";
 import { BASE_URL } from "../../routes/endPoints";
-import { getAuth } from "../../utils/pip";
+import { clearAuth, getAuth } from "../../utils/pip";
 
 export const API_REQUEST = async (props) => {
   const { BASE =BASE_URL, url, method, data, headers, params, isErrorToast = true } = props;
@@ -32,7 +32,7 @@ export const API_REQUEST = async (props) => {
       if (error.response) {
         if (error?.response?.data?.status == 401) {
           toast.error(error?.response?.data?.message);
-          localStorage.clear();
+          clearAuth();
           window.location.href = pageRoutes?.login;
           return;
         }
