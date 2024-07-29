@@ -12,7 +12,7 @@ import Login from "../pages/Login";
 import ForgetPassword from "../pages/ForgetPassword";
 import NewPassword from "../pages/NewPassword";
 import Signup from "../pages/Signup";
-
+import EditProfile from "../pages/EditProfile";
 
 export const pageRoutes = {
   dashboard: "/expert/",
@@ -25,10 +25,11 @@ export const pageRoutes = {
   changePassword: "/expert/change-password",
   editFlashCard: "/expert/edit-flashcard",
   flashCard: "/expert/flashcard",
-  newMocktest : "/expert/new-mocktest",
-  profile : "/expert/profile",
-  studentDetails : "/expert/student-details",
-  student : "/expert/student",
+  newMocktest: "/expert/new-mocktest",
+  profile: "/expert/profile",
+  editProfile: "/expert/edit-profile",
+  studentDetails: "/expert/student-details",
+  student: "/expert/student",
 };
 const expertRoutes = [
   {
@@ -76,45 +77,51 @@ const expertRoutes = [
   {
     name: "changePassword",
     path: pageRoutes?.changePassword,
-    element: <ChangePassword/>,
+    element: <ChangePassword />,
     isPrivate: true,
   },
   {
     name: "editFlashCard",
     path: pageRoutes?.editFlashCard,
-    element: <EditFlashCard/>,
+    element: <EditFlashCard />,
     isPrivate: true,
-  }, 
-    {
+  },
+  {
     name: "flashCard",
     path: pageRoutes?.flashCard,
-    element: <FlashCard/>,
+    element: <FlashCard />,
     isPrivate: true,
-  }, 
+  },
   {
-  name: "newMocktest",
-  path: pageRoutes?.newMocktest,
-  element: <NewMockTest/>,
-  isPrivate: true,
-},
-{
-name: "profile",
-path: pageRoutes?.profile,
-element: <Profile/>,
-isPrivate: true,
-},
-{
-name: "studentDetails",
-path: pageRoutes?.studentDetails,
-element: <StudentDetails/>,
-isPrivate: true,
-},
-{
-name: "student",
-path: pageRoutes?.student,
-element: <Student/>,
-isPrivate: true,
-},
+    name: "newMocktest",
+    path: pageRoutes?.newMocktest,
+    element: <NewMockTest />,
+    isPrivate: true,
+  },
+  {
+    name: "profile",
+    path: pageRoutes?.profile,
+    element: <Profile />,
+    isPrivate: true,
+  },
+  {
+    name: "editProfile",
+    path: pageRoutes?.editProfile,
+    element: <EditProfile />,
+    isPrivate: true,
+  },
+  {
+    name: "studentDetails",
+    path: pageRoutes?.studentDetails,
+    element: <StudentDetails />,
+    isPrivate: true,
+  },
+  {
+    name: "student",
+    path: pageRoutes?.student,
+    element: <Student />,
+    isPrivate: true,
+  },
 ];
 
 export default expertRoutes;

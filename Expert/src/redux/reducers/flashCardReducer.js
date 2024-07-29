@@ -6,6 +6,7 @@ import {
   addFlashCard,
   updateFlashCard,
   deleteFlashCard,
+  addMockTest,
 } from "../actions/flashCardActions";
 
 const initialState = {
@@ -24,7 +25,7 @@ const flashCardSlice = createSlice({
     // fetch-flash-cart-list
     builder.addCase(fetchFlashCardList.fulfilled, (state, action) => {
       const { data } = action?.payload || {};
-      state.flashCardData = data;
+      state.flashCardData = data ?? [];
       state.isLoading = false;
     });
     builder.addCase(fetchFlashCardList.pending, (state, action) => {
@@ -75,7 +76,16 @@ const flashCardSlice = createSlice({
     builder.addCase(addFlashCard.rejected, (state, action) => {
       state.isLoading = false;
     });
-
+    // add-mock-test
+    builder.addCase(addMockTest.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(addMockTest.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(addMockTest.rejected, (state, action) => {
+      state.isLoading = false;
+    });
     // fetch-mock-list
     builder.addCase(fetchMockTestList.fulfilled, (state, action) => {
       const { data } = action?.payload || {};

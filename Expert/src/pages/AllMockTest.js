@@ -12,15 +12,45 @@ import {
 
 function AllMockTest() {
   const dispatch = useDispatch();
-  const { categories } = useSelector((state) => state?.flashCardReducer);
+  const navigate = useNavigate();
+  const [statusFilter, setStatusFilter] = useState("");
+  const [markFilter, setMarkFilter] = useState("");
+  const { categories, isLoading } = useSelector(
+    (state) => state?.flashCardReducer
+  );
   const list = useSelector((state) => state?.flashCardReducer?.mockList);
   const [mockList, setMockList] = useState(list);
-  const [statusFilter, setStatusFilter] = useState("");
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    let filtered = [...list]; // Create a copy of the list
+
+    if (statusFilter) {
+      filtered = filtered.filter((sub) =>
+        statusFilter === "all" ? sub : sub?.category === statusFilter
+      );
+    }
+
+    if (markFilter) {
+      filtered = filtered
+        .slice()
+        .sort((a, b) =>
+          markFilter === "Ascending Order"
+            ? parseInt(a?.total_mark) - parseInt(b?.total_mark)
+            : parseInt(b?.total_mark) - parseInt(a?.total_mark)
+        );
+    }
+
+    setMockList(filtered);
+  }, [statusFilter, markFilter, list]);
+
   useEffect(() => {
     dispatch(fetchCategoryList());
     dispatch(fetchMockTestList());
   }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <main>
@@ -40,14 +70,18 @@ function AllMockTest() {
                       options={categories}
                       value={statusFilter}
                       onChange={setStatusFilter}
+                      valuefilter={true}
                     />
                   </div>
 
                   <div className="ct_category_select_2">
-                    Sorted by :
-                    <select>
-                      <option value="">Marks</option>
-                      <option value="">Marks</option>
+                    Sorted by marks:
+                    <select
+                      onChange={(e) => setMarkFilter(e.target.value)}
+                      value={markFilter}
+                    >
+                      <option value="Ascending Order">Ascending Order</option>
+                      <option value="Descending Order">Descending Order</option>
                     </select>
                   </div>
                   <div>
@@ -67,7 +101,7 @@ function AllMockTest() {
                     <tr>
                       <th>Test name</th>
                       <th>Category / Field</th>
-                      <th>Duration</th>
+                      <th>Duration hh/mm</th>
                       <th>Total Questions</th>
                       <th>Marks</th>
                       <th>Status</th>
@@ -75,23 +109,27 @@ function AllMockTest() {
                   </thead>
                   <tbody>
                     {mockList?.length === 0 && (
-                      <div className="text-center py-4">
-                        No flash cards found.
-                      </div>
+                      <div className="text-center py-4">No record found.</div>
                     )}
-                    {mockList?.map((item, index) => {
-                      return (
-                        <tr key={index}>
-                          <td>{item?.test_name}</td>
-                          <td>{item?.category}</td>
-                          <td>{item?.test_duration}</td>
-                          <td>{item?.totalQuestions}</td>
-                          <td>{item?.total_mark}</td>
-                          <td>
-                            <label className="ct_switch">
-                              <input type="checkbox" defaultChecked={item?.status != 0 ? true: false}  />
-                              <div className="ct_slider">
-                                <div className="ct_circle">
+                    {mockList?.length > 0 &&
+                      mockList?.map((item, index) => {
+                        return (
+                          <tr key={index}>
+                            <td>{item?.test_name}</td>
+                            <td>{item?.category}</td>
+                            <td>{item?.test_duration}</td>
+                            <td>{item?.totalQuestions}</td>
+                            <td>{item?.total_mark}</td>
+                            <td>
+                              <label className="ct_switch">
+                                <input
+                                  type="checkbox"
+                                  defaultChecked={
+                                    item?.status != 0 ? true : false
+                                  }
+                                />
+                                <div className="ct_slider">
+                                  <div className="ct_circle">
                                     <svg
                                       xmlns="http://www.w3.org/2000/svg"
                                       version="1.1"
@@ -139,13 +177,13 @@ function AllMockTest() {
                                         />
                                       </g>
                                     </svg>
+                                  </div>
                                 </div>
-                              </div>
-                            </label>
-                          </td>
-                        </tr>
-                      );
-                    })}
+                              </label>
+                            </td>
+                          </tr>
+                        );
+                      })}
                   </tbody>
                 </table>
               </div>

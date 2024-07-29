@@ -16,7 +16,7 @@ function FlashCardList() {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state?.flashCardReducer);
   const list = useSelector((state) => state?.flashCardReducer?.flashCardData);
-  const [flashCardData, setFlashCardData] = useState(list);
+  const [flashCardData, setFlashCardData] = useState(list );
   const { categories } = useSelector((state) => state?.flashCardReducer);
   const [statusFilter, setStatusFilter] = useState("");
   useEffect(() => {
@@ -73,7 +73,7 @@ function FlashCardList() {
 
               <div className="row ct_flash_card_scroll">
                 {flashCardData?.length <= 0 && (
-                  <div className="text-center py-4">No flash cards found.</div>
+                  <div className="text-center py-4">No record found.</div>
                 )}
                 {flashCardData?.map((card, index) => (
                   <>

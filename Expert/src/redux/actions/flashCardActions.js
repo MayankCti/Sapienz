@@ -6,7 +6,8 @@ import {
   fetchFlashCardAPI,
   fetchMockTestAPI,
   editFlashCardAPI,
-  deleteFlashCardAPI
+  deleteFlashCardAPI,
+  createMockTestAPI
 } from "../../routes/endPoints";
 import { API_REQUEST } from ".";
 
@@ -90,6 +91,24 @@ export const fetchCategoryList = createAsyncThunk(
 );
 
 // MOCK TEST :
+
+// add-mock-list
+export const addMockTest = createAsyncThunk(
+  "add-mock-list",
+  async (props) => {
+    const { payload, callback } = props;
+    try {
+      const response = await API_REQUEST({
+        url: createMockTestAPI,
+        method: "POST",
+        data: payload,
+      });
+      callback(response);
+      return response;
+    } catch (error) {}
+  }
+);
+
 
 // fetch-mock-list
 export const fetchMockTestList = createAsyncThunk(
