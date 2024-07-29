@@ -13,18 +13,12 @@ function Header() {
           <div className="ct_toggle_bar">
             <i className="fa-solid fa-bars" />
           </div>
-          <div className="ct_head_search">
+          {/* <div className="ct_head_search">
             <input type="text" placeholder="Search" />
             <i className="fa-solid fa-magnifying-glass" />
-          </div>
+          </div> */}
         </div>
         <div className="ct_right_header_right">
-          {/* <div className="ct_notification_main">
-          <div className="ct_notification_icon">
-            <img src="/assets/img/bell_icon.svg" alt="" />
-            <span>6</span>
-          </div>
-        </div> */}
           <div className="ct_language_selector">
             <img src="/assets/img/us.png" alt="" />
             <select className="form-control">

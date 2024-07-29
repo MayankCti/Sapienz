@@ -1,9 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchDashboard, fetchStudentList } from "../actions/studentActions";
+import {
+  fetchDashboard,
+  fetchStudentList,
+  fetchStudentDetails,
+} from "../actions/studentActions";
 
 const initialState = {
   isLoading: true,
   students: [],
+  studentDetail: {},
+  testList: [],
   cardData: [
     {
       title: "Total Mock Test",
@@ -32,64 +38,6 @@ const initialState = {
     //   trendText: "Up from yesterday",
     // },
   ],
-  //   [
-  //     {
-  //       name: "Keith Baumbach",
-  //       standard: "9th Standard",
-  //       email: "Giovanny51@yahoo.com",
-  //       activeFrom: "12.09.2019",
-  //       imgSrc: "/assets/img/expert_img_1.png",
-  //     },
-  //     {
-  //       name: "Brenda Bogisich",
-  //       standard: "9th Standard",
-  //       email: "Giovanny51@yahoo.com",
-  //       activeFrom: "12.09.2019",
-  //       imgSrc: "/assets/img/expert_img_2.png",
-  //     },
-  //     {
-  //       name: "Elsa Kautzer",
-  //       standard: "9th Standard",
-  //       email: "Marina.Schuster@yahoo.com",
-  //       activeFrom: "12.09.2019",
-  //       imgSrc: "/assets/img/expert_img_3.png",
-  //     },
-  //     {
-  //       name: "Velma Fay",
-  //       standard: "9th Standard",
-  //       email: "Dasia_Herman51@hotmail.com",
-  //       activeFrom: "12.09.2019",
-  //       imgSrc: "/assets/img/expert_img_4.png",
-  //     },
-  //     {
-  //       name: "Keith Baumbach",
-  //       standard: "9th Standard",
-  //       email: "Giovanny51@yahoo.com",
-  //       activeFrom: "12.09.2019",
-  //       imgSrc: "/assets/img/expert_img_1.png",
-  //     },
-  //     {
-  //       name: "Brenda Bogisich",
-  //       standard: "9th Standard",
-  //       email: "Giovanny51@yahoo.com",
-  //       activeFrom: "12.09.2019",
-  //       imgSrc: "/assets/img/expert_img_2.png",
-  //     },
-  //     {
-  //       name: "Elsa Kautzer",
-  //       standard: "9th Standard",
-  //       email: "Marina.Schuster@yahoo.com",
-  //       activeFrom: "12.09.2019",
-  //       imgSrc: "/assets/img/expert_img_3.png",
-  //     },
-  //     {
-  //       name: "Velma Fay",
-  //       standard: "9th Standard",
-  //       email: "Dasia_Herman51@hotmail.com",
-  //       activeFrom: "12.09.2019",
-  //       imgSrc: "/assets/img/expert_img_4.png",
-  //     },
-  //   ],
 };
 
 const studentSlice = createSlice({
@@ -112,7 +60,7 @@ const studentSlice = createSlice({
     // fetch-dashboard
     builder.addCase(fetchDashboard.fulfilled, (state, action) => {
       const { totalStudents, myFlashCard, totalMockTest, allStudents } =
-        action?.payload;
+        action?.payload ?? {};
       state.cardData[0].value = totalMockTest ?? 0;
       state.cardData[1].value = totalStudents ?? 0;
       state.cardData[2].value = myFlashCard ?? 0;
@@ -123,6 +71,22 @@ const studentSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(fetchDashboard.rejected, (state, action) => {
+      state.isLoading = false;
+    });
+    // fetch-student-details
+    builder.addCase(fetchStudentDetails.fulfilled, (state, action) => {
+      const { data } = action?.payload ?? {};
+      return {
+        ...state,
+        isLoading: false,
+        studentDetail: data,
+        testList: data?.allTestRecords,
+      };
+    });
+    builder.addCase(fetchStudentDetails.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchStudentDetails.rejected, (state, action) => {
       state.isLoading = false;
     });
   },

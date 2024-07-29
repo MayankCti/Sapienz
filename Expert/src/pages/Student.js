@@ -125,7 +125,7 @@ function Student() {
                             <a
                               href="javascript:void(0)"
                               onClick={() =>
-                                navigate(pageRoutes?.studentDetails)
+                                navigate(pageRoutes?.studentDetails,{state : {id:student?.id}})
                               }
                               className="text-dark"
                             >

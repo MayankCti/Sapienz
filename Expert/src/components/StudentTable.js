@@ -22,7 +22,6 @@ const StudentTable = () => {
         <div className="text-center py-4">No record found.</div>
       )}
       <tbody>
-       
         {students?.length > 0 &&
           students?.map((student, index) => {
             return (

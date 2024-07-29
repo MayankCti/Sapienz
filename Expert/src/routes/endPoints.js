@@ -26,4 +26,5 @@ export const createMockTestAPI = "createMockTest";
 
 // Dashboard & Student
 export const fetchAllStudentsByExpertAPI = "fetchAllStudentsByExpert";
+export const fetchStudentByIdAPI = "fetchStudentById";
 export const expertDashboardAPI = "expertDashboard";
