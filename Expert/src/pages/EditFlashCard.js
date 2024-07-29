@@ -125,7 +125,6 @@ function EditFlashCard() {
                   <div className="ms-4 d-flex align-items-center gap-3">
                     <a
                       href="javascript:void(0)"
-                      // onClick={handleDelete}
                       data-bs-toggle="modal"
                       data-bs-target="#ct_confirmation_modal"
                       className="ct_blue_btn ct_delete_btn1 py-3 ct_btn_h_48"
@@ -375,10 +374,10 @@ function EditFlashCard() {
                 </button>
                 <button
                   type="button"
-                  className="bg-danger ct_outline_btn ct_blue_btn text-white "
+                  className="bg-danger ct_outline_btn ct_blue_btn text-white justify-content-center"
                   data-bs-dismiss="modal"
                   style={{ borderColor: "rgb(220, 53, 69)" }}
-                  onClick={handleDelete}
+                  // onClick={handleDelete}
                 >
                   Delete
                 </button>

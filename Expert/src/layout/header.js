@@ -5,7 +5,7 @@ import { clearAuth, getProfile } from "../utils/pip";
 
 function Header() {
   const navigate = useNavigate();
-const user_name = getProfile()?.user_name
+  const { user_name, expert_profile } = getProfile();
   return (
     <>
       <div className="ct_right_header">
@@ -13,18 +13,12 @@ const user_name = getProfile()?.user_name
           <div className="ct_toggle_bar">
             <i className="fa-solid fa-bars" />
           </div>
-          <div className="ct_head_search">
+          {/* <div className="ct_head_search">
             <input type="text" placeholder="Search" />
             <i className="fa-solid fa-magnifying-glass" />
-          </div>
+          </div> */}
         </div>
         <div className="ct_right_header_right">
-          {/* <div className="ct_notification_main">
-          <div className="ct_notification_icon">
-            <img src="/assets/img/bell_icon.svg" alt="" />
-            <span>6</span>
-          </div>
-        </div> */}
           <div className="ct_language_selector">
             <img src="/assets/img/us.png" alt="" />
             <select className="form-control">
@@ -37,14 +31,12 @@ const user_name = getProfile()?.user_name
               onClick={() => navigate(pageRoutes?.profile)}
             >
               <img
-                src="/assets/img/user_profile.png"
+                src={expert_profile ?? "/assets/img/user_profile.png"}
                 alt=""
                 className="ct_img_44"
               />
               <div>
-                <h6 className="ct_fs_14 ct_fw_600 mb-0">
-                  {user_name}
-                </h6>
+                <h6 className="ct_fs_14 ct_fw_600 mb-0">{user_name ?? ""}</h6>
                 <p className="mb-0 ct_fs_12 ct_fw_400">Admin</p>
               </div>
             </a>
@@ -97,7 +89,7 @@ const user_name = getProfile()?.user_name
               <h4 className="text-center mb-4 ct_fw_600">Log Our Account</h4>
               <p className="text-center ct_grey_text">
                 Are you sure, you want to logout? once you logout <br /> you
-                need to login agai,Are you Ok?
+                need to login again,Are you Ok?
               </p>
               <div className="modal-footer border-0 justify-content-center">
                 <button
@@ -115,10 +107,10 @@ const user_name = getProfile()?.user_name
                   }}
                   type="button"
                   data-bs-dismiss="modal"
-                  className=" bg-danger ct_outline_btn ct_blue_btn text-white"
+                  className=" bg-danger ct_outline_btn ct_blue_btn text-white justify-content-center"
                   style={{ borderColor: "rgb(220, 53, 69)" }}
                 >
-                  Yes Logout!
+                  Logout
                 </a>
               </div>
               <div></div>

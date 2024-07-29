@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Siderbar from "../layout/sidebar";
 import Header from "../layout/header";
+import { useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchStudentDetails } from "../redux/actions/studentActions";
+import { getDateFormat, getStandard } from "../utils/pip";
 
 function StudentDetails() {
+  const student_id = useLocation()?.state?.id;
+  const dispatch = useDispatch();
+  const { studentDetail, testList, isLoading } = useSelector(
+    (state) => state.studentReducer
+  );
+
+  useEffect(() => {
+    dispatch(fetchStudentDetails(student_id));
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <main>
         {/* Expert Sidebaar */}
         <Siderbar />
         <div className="ct_right_content">
-
-        {/* expert header */}
-          <Header/>
+          {/* expert header */}
+          <Header />
 
           <div className="ct_inner_dashbaord_main">
             <div className="ct_white_bg p-4">
@@ -40,12 +56,22 @@ function StudentDetails() {
                           />
                           <div>
                             <h5 className="ct_fs_28 mb-1 ct_fw_600">
-                              Elsa Kautzer
+                              {studentDetail?.studentProfile?.user_name}
                             </h5>
-                            <p className="mb-0">9th Standard </p>
-                            <p className="mb-0">Martin.C@hotmail.com </p>
+                            <p className="mb-0">
+                              {studentDetail?.studentProfile?.classes}
+                              {getStandard(
+                                studentDetail?.studentProfile?.classes
+                              )}
+                            </p>
+                            <p className="mb-0">
+                              {studentDetail?.studentProfile?.email}{" "}
+                            </p>
                             <p className="ct_blue_text mb-0">
-                              Active from - 12.09.2019
+                              Active from -{" "}
+                              {getDateFormat(
+                                studentDetail?.studentProfile?.created_at
+                              )}
                             </p>
                           </div>
                         </div>
@@ -57,7 +83,9 @@ function StudentDetails() {
                               <i className="fa-solid fa-flag" />
                             </div>
                             <div>
-                              <h4 className="ct_fs_28 ct_fw_600">27</h4>
+                              <h4 className="ct_fs_28 ct_fw_600">
+                                {studentDetail?.passCount ?? 0}
+                              </h4>
                               <p className="mb-0">Quiz Passed</p>
                             </div>
                           </div>
@@ -66,8 +94,10 @@ function StudentDetails() {
                               <i className="fa-solid fa-clock" />
                             </div>
                             <div>
-                              <h4 className="ct_fs_28 ct_fw_600">27min</h4>
-                              <p className="mb-0">Fastest Time</p>
+                              <h4 className="ct_fs_28 ct_fw_600">
+                                {studentDetail?.minimumTiming ?? 0}{" "}
+                              </h4>
+                              <p className="mb-0">Fastest Time hh:mm</p>
                             </div>
                           </div>
                           <div className="ct_small_box">
@@ -75,7 +105,9 @@ function StudentDetails() {
                               <i className="fa-solid fa-circle-check" />
                             </div>
                             <div>
-                              <h4 className="ct_fs_28 ct_fw_600">200</h4>
+                              <h4 className="ct_fs_28 ct_fw_600">
+                                {studentDetail?.totalCorrectAnswers ?? 0}
+                              </h4>
                               <p className="mb-0">Correct Answers</p>
                             </div>
                           </div>
@@ -101,7 +133,19 @@ function StudentDetails() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    {console.log(testList)}
+                    {testList?.length > 0 &&
+                      testList?.map((record) => (
+                        <tr key={record?.id}>
+                          <td>{record?.testDetails?.test_name}</td>
+                          <td>{record?.categoryName}</td>
+                          <td>{record?.testDetails?.test_duration}</td>
+                          <td>{record?.totalQuestions}</td>
+                          <td>{record?.testDetails?.total_mark}</td>
+                          <td>{record?.obtain_mark}</td>
+                        </tr>
+                      ))}
+                    {/* <tr>
                       <td>Rustic</td>
                       <td>Physics</td>
                       <td>10 Minutes</td>
@@ -200,7 +244,7 @@ function StudentDetails() {
                       <td>
                         <span className="ct_blue_text"> 78</span>
                       </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </table>
               </div>
@@ -208,7 +252,6 @@ function StudentDetails() {
           </div>
         </div>
       </main>
-
     </>
   );
 }

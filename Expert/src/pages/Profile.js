@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Siderbar from "../layout/sidebar";
 import Header from "../layout/header";
 import { pageRoutes } from "../routes/path";
+import { fetchProfile, updateProfile } from "../redux/actions/authActions";
+import { useDispatch, useSelector } from "react-redux";
 
 function Profile() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { profile, isLoading } = useSelector((state) => state?.authReducer);
 
+  useEffect(() => {
+    dispatch(fetchProfile());
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <main>
@@ -23,38 +34,39 @@ function Profile() {
                   <div className="ms-md-4 d-flex align-items-center gap-3">
                     <a
                       href="javascript:void(0)"
-                      onClick={() => navigate(pageRoutes?.dashboard)}
-                      className=" ct_blue_btn ct_outline_blue py-3 ct_btn_h_48"
-                    >
-                      Cancel
-                    </a>
-                    <a
-                      href="javascript:void(0)"
-                      onClick={() => navigate(pageRoutes?.dashboard)}
+                      onClick={() => navigate(pageRoutes?.editProfile)}
                       className="ct_blue_btn  py-3 ct_btn_h_48"
                     >
                       Update Profile
+                    </a>
+                    <a
+                      href="javascript:void(0)"
+                      onClick={() => navigate(pageRoutes?.changePassword)}
+                      type="button"
+                      className="ct_blue_btn mt-0 ct_btn_h_48"
+                    >
+                      Change Password
                     </a>
                   </div>
                 </div>
               </div>
               <div className="row">
                 <div className="col-md-6">
-                  <form action="" className="ps-md-4">
+                  <form className="ps-md-4">
                     <div className="d-flex align-items-center gap-3">
-                     <label for="ct_profile_img_1" style={{cursor:"pointer"}}>
-                      <input type="file" className="d-none" id="ct_profile_img_1"/>
                       <img
-                        src="/assets/img/user_profile.png"
+                        src={profile?.expert_profile ?? "/assets/img/user_profile.png"}
                         alt=""
                         className="ct_img_66"
                       />
-                     </label>
                       <div>
-                        <h5 className="ct_fs_20 mb-1">Moni Roy</h5>
+                        <h5 className="ct_fs_20 mb-1">
+                          {profile?.user_name ?? ""}
+                        </h5>
                         <p className="mb-0">Admin</p>
                       </div>
                     </div>
+
                     <div className="row mt-4">
                       <div className="col-md-6 mb-4">
                         <div className="form-group">
@@ -64,22 +76,27 @@ function Profile() {
                           </label>
                           <input
                             type="text"
+                            id="first_name"
+                            value={profile?.first_name}
                             className="ct_input form-control"
                             placeholder="First Name"
-                            defaultValue="Moni"
+                            disabled={true}
                           />
                         </div>
                       </div>
                       <div className="col-md-6 mb-4">
                         <div className="form-group">
                           <label htmlFor="" className="mb-2 ct_fw_500">
-                            Last Name<span className="ct_required_text">*</span>
+                            Last Name
+                            <span className="ct_required_text">*</span>
                           </label>
                           <input
                             type="text"
                             className="ct_input form-control"
+                            id="last_name"
+                            value={profile?.last_name}
                             placeholder="Last Name"
-                            defaultValue="Roy"
+                            disabled={true}
                           />
                         </div>
                       </div>
@@ -92,21 +109,13 @@ function Profile() {
                             type="email"
                             className="ct_input form-control"
                             placeholder="Email"
-                            defaultValue="moniroy@gmail.com"
+                            value={profile?.email}
+                            disabled={true}
                           />
                         </div>
                       </div>
                     </div>
-                    <div className="d-flex align-items-center gap-3">
-                      <a
-                        href="javascript:void(0)"
-                        onClick={() => navigate(pageRoutes?.changePassword)}
-                        type="button"
-                        className="ct_blue_btn mt-0 ct_btn_h_48"
-                      >
-                        Change Password
-                      </a>
-                    </div>
+                    <div className="d-flex align-items-center gap-3"></div>
                   </form>
                 </div>
               </div>
@@ -114,7 +123,6 @@ function Profile() {
           </div>
         </div>
       </main>
-
     </>
   );
 }

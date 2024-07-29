@@ -64,14 +64,46 @@ export const changePasswordSchema = Yup.object().shape({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
       "Please enter a valid password"
     ),
-    new_password: Yup.string()
+  new_password: Yup.string()
     .required("Please enter new password")
     .min(8, "New Password cannot be less then 8 characters")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
       "Strong passwords require at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character."
     ),
-    confirm_password: Yup.string()
+  confirm_password: Yup.string()
     .required("Please enter confirm password")
     .oneOf([Yup.ref("new_password"), null], "Your password must match"),
+});
+
+// Update-profile
+export const updateProfileSchema = Yup.object().shape({
+  first_name: Yup.string()
+    .required("Please enter first name")
+    .min(3, "First name must be at least 3 characters long")
+    .max(20, "First name cannot be more than 20 characters long")
+    .matches(
+      /^[a-zA-Z0-9\s]+$/,
+      "First name can only contain alphanumeric characters and spaces"
+    ),
+  last_name: Yup.string()
+    .required("Please enter last name")
+    .min(3, "Last name must be at least 3 characters long")
+    .max(20, "Last name cannot be more than 20 characters long")
+    .matches(
+      /^[a-zA-Z0-9\s]+$/,
+      "Last name can only contain alphanumeric characters and spaces"
+    ),
+  profile_images: Yup.mixed()
+    .test("fileType", "Invalid file type", (value) => {
+      if (!value) return true;
+      const validFileTypes = [
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+        "image/gif",
+      ]; // Example valid file types
+      return validFileTypes.includes(value.type);
+    })
+    .required("Profile Photo is required"),
 });

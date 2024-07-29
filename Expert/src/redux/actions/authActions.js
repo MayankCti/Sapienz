@@ -6,6 +6,7 @@ import {
   loginAPI,
   signupAPI,
   profileAPI,
+  editProfileAPI,
 } from "../../routes/endPoints";
 import { setAuth } from "../../utils/pip";
 
@@ -101,8 +102,8 @@ export const updateProfile = createAsyncThunk(
     const { payload, callback } = props;
     try {
       const response = await API_REQUEST({
-        url: profileAPI,
-        method: "PATCH",
+        url: editProfileAPI,
+        method: "POST",
         data: payload,
         isErrorToast: true,
       });

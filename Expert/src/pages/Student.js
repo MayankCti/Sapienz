@@ -1,70 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Siderbar from "../layout/sidebar";
 import Header from "../layout/header";
 import { useNavigate } from "react-router-dom";
 import { pageRoutes } from "../routes/path";
 import StudentTable from "../components/StudentTable";
+import {
+  fetchDashboard,
+  fetchStudentList,
+} from "../redux/actions/studentActions";
+import { useDispatch, useSelector } from "react-redux";
+import { getDateFormat, getStandard } from "../utils/pip";
 
 function Student() {
   const navigate = useNavigate();
-  const [students, setStudents] = useState([
-    {
-      name: "Keith Baumbach",
-      standard: "9th Standard",
-      email: "Giovanny51@yahoo.com",
-      activeFrom: "12.09.2019",
-      imgSrc: "/assets/img/expert_img_1.png",
-    },
-    {
-      name: "Brenda Bogisich",
-      standard: "9th Standard",
-      email: "Giovanny51@yahoo.com",
-      activeFrom: "12.09.2019",
-      imgSrc: "/assets/img/expert_img_2.png",
-    },
-    {
-      name: "Elsa Kautzer",
-      standard: "9th Standard",
-      email: "Marina.Schuster@yahoo.com",
-      activeFrom: "12.09.2019",
-      imgSrc: "/assets/img/expert_img_3.png",
-    },
-    {
-      name: "Velma Fay",
-      standard: "9th Standard",
-      email: "Dasia_Herman51@hotmail.com",
-      activeFrom: "12.09.2019",
-      imgSrc: "/assets/img/expert_img_4.png",
-    },
-    {
-      name: "Keith Baumbach",
-      standard: "9th Standard",
-      email: "Giovanny51@yahoo.com",
-      activeFrom: "12.09.2019",
-      imgSrc: "/assets/img/expert_img_1.png",
-    },
-    {
-      name: "Brenda Bogisich",
-      standard: "9th Standard",
-      email: "Giovanny51@yahoo.com",
-      activeFrom: "12.09.2019",
-      imgSrc: "/assets/img/expert_img_2.png",
-    },
-    {
-      name: "Elsa Kautzer",
-      standard: "9th Standard",
-      email: "Marina.Schuster@yahoo.com",
-      activeFrom: "12.09.2019",
-      imgSrc: "/assets/img/expert_img_3.png",
-    },
-    {
-      name: "Velma Fay",
-      standard: "9th Standard",
-      email: "Dasia_Herman51@hotmail.com",
-      activeFrom: "12.09.2019",
-      imgSrc: "/assets/img/expert_img_4.png",
-    },
-  ]);
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state?.studentReducer);
+  const list = useSelector((state) => state?.studentReducer?.students);
+  const [students, setStudents] = useState(list);
+
+  useEffect(() => {
+    // dispatch(fetchStudentList());
+    dispatch(fetchDashboard());
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <main>
@@ -152,38 +113,52 @@ function Student() {
                     aria-labelledby="pills-expert_column-tab"
                   >
                     <div className="row">
-                      {students?.map((student, index) => (
-                        <div
-                          key={index}
-                          className="col-xxl-3 col-xl-6 col-md-6 mb-4"
-                        >
-                          <a
-                            href="javascript:void(0)"
-                            onClick={() => navigate(pageRoutes?.studentDetails)}
-                            className="text-dark"
+                      {students?.length <= 0 && (
+                        <div className="text-center py-4">No record found.</div>
+                      )}
+                      {students?.length > 0 &&
+                        students?.map((student, index) => (
+                          <div
+                            key={index}
+                            className="col-xxl-3 col-xl-6 col-md-6 mb-4"
                           >
-                            <div className="ct_expert_card">
-                              <div className="ct_expert_img">
-                                <img
-                                  src={student?.imgSrc}
-                                  alt={student?.name}
-                                  className="ct_img_109"
-                                />
+                            <a
+                              href="javascript:void(0)"
+                              onClick={() =>
+                                navigate(pageRoutes?.studentDetails,{state : {id:student?.id}})
+                              }
+                              className="text-dark"
+                            >
+                              <div className="ct_expert_card">
+                                <div className="ct_expert_img">
+                                  <img
+                                    src={
+                                      student?.user_profile ??
+                                      "/assets/img/user_profile.png"
+                                    }
+                                    alt={""}
+                                    className="ct_img_109"
+                                  />
+                                </div>
+                                <div className="ct_expert_info">
+                                  <h4 className="ct_fs_16 ct_fw_600">
+                                    {student?.first_name ?? ""}{" "}
+                                    {student?.last_name ?? ""}
+                                  </h4>
+                                  <p>
+                                    {student?.classes ?? ""}
+                                    {getStandard(student?.classes)}
+                                  </p>
+                                  <p>{student?.email}</p>
+                                  <h6 className="ct_blue_text">
+                                    Active from -{" "}
+                                    {getDateFormat(student?.created_at)}
+                                  </h6>
+                                </div>
                               </div>
-                              <div className="ct_expert_info">
-                                <h4 className="ct_fs_16 ct_fw_600">
-                                  {student?.name}
-                                </h4>
-                                <p>{student?.standard}</p>
-                                <p>{student?.email}</p>
-                                <h6 className="ct_blue_text">
-                                  Active from - {student?.activeFrom}
-                                </h6>
-                              </div>
-                            </div>
-                          </a>
-                        </div>
-                      ))}
+                            </a>
+                          </div>
+                        ))}
                     </div>
                   </div>
                   <div
