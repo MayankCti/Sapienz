@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Siderbar from "../layout/sidebar";
-import Header from "../layout/header";
-import { pageRoutes } from "../routes/path";
-import { updateProfileSchema } from "../utils/schema";
 import { Formik } from "formik";
+import { pageRoutes } from "../routes/path";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { updateProfileSchema } from "../utils/schema";
 import ErrorMessage from "../components/ErrorMessage";
-import { fetchProfile, updateProfile } from "../redux/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
+import SapienzeLoader from "../components/Loader/SapienzeLoader";
+import { fetchProfile, updateProfile } from "../redux/actions/authActions";
 
 function EditProfile() {
   const navigate = useNavigate();
@@ -39,16 +38,10 @@ function EditProfile() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <SapienzeLoader/>;
   }
   return (
     <>
-      <main>
-        {/* Expert Sidebaar */}
-        <Siderbar />
-        <div className="ct_right_content">
-          {/* expert header */}
-          <Header />
           <div className="ct_inner_dashbaord_main">
             <div className="ct_white_bg p-4">
               <div className="d-flex align-items-center justify-content-between gap-2 mb-4 flex-wrap">
@@ -208,8 +201,6 @@ function EditProfile() {
               </div>
             </div>
           </div>
-        </div>
-      </main>
     </>
   );
 }

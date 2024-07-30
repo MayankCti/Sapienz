@@ -106,8 +106,6 @@ export const addMockTest = createAsyncThunk(
     } catch (error) {}
   }
 );
-
-
 // fetch-mock-list
 export const fetchMockTestList = createAsyncThunk(
   "fetch-mock-list",
@@ -121,7 +119,6 @@ export const fetchMockTestList = createAsyncThunk(
     } catch (error) {}
   }
 );
-
 // update-mock-test-status
 export const updateMockTestStatus = createAsyncThunk(
   "update-mock-test-status",

@@ -20,7 +20,7 @@ export const authSlice = createSlice({
   initialState: initialState,
   reducers: {
     toggleChange: (state, action) => {
-      state.isToggle = !state.isToggle;
+      state.isToggle = action?.payload;
     },
     handleLogout: (state, action) => {
       state.isLogin = action?.payload;

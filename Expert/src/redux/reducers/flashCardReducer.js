@@ -109,8 +109,6 @@ const flashCardSlice = createSlice({
     builder.addCase(updateMockTestStatus.rejected, (state, action) => {
       state.isLoading = false;
     });
-
-
   },
 });
 

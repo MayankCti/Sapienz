@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Siderbar from "../layout/sidebar";
-import Header from "../layout/header";
+import { message } from "antd";
 import { pageRoutes } from "../routes/path";
+import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addFlashCard,
   fetchCategoryList,
 } from "../redux/actions/flashCardActions";
-import CategorySelect from "../components/formInputs/CategorySelect";
 import SimpleReactValidator from "simple-react-validator";
-import { message } from "antd";
+import CategorySelect from "../components/formInputs/CategorySelect";
 
 function AddFlashCard() {
   const navigate = useNavigate();
@@ -30,7 +28,6 @@ function AddFlashCard() {
   const [answer, setAnswer] = useState("");
 
   const handleSubmit = (event) => {
-    console.log();
     event.preventDefault();
     if (validator.allValid()) {
       const callback = (response) => {
@@ -61,7 +58,6 @@ function AddFlashCard() {
     } else {
       validator.showMessages();
       message.error("Please fill out all fields");
-      console.log(validator?.errorMessages);
       forceUpdate(1);
     }
   };
@@ -72,14 +68,7 @@ function AddFlashCard() {
 
   return (
     <>
-      <main>
-        {/* Expert Sidebaar */}
-        <Siderbar />
-        <div className="ct_right_content">
-          {/* expert header */}
-          <Header />
-
-          <div className="ct_inner_dashbaord_main">
+      <div className="ct_inner_dashbaord_main">
             <div className="ct_white_bg p-4">
               <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
                 <h4 className="ct_fs_24 ps-4 ct_fw_600">Flash Card Details</h4>
@@ -286,8 +275,6 @@ function AddFlashCard() {
               </div>
             </div>
           </div>
-        </div>
-      </main>
     </>
   );
 }

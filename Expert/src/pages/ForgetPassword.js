@@ -1,15 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { pageRoutes } from "../routes/path";
 import { Formik } from "formik";
-import { forgotPasswordSchema } from "../utils/schema";
-import { useDispatch } from "react-redux";
-import { expertForgotPassword } from "../redux/actions/authActions";
+import { pageRoutes } from "../routes/path";
+import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
+import { forgotPasswordSchema } from "../utils/schema";
+import { useDispatch, useSelector } from "react-redux";
+import SapienzeLoader from "../components/Loader/SapienzeLoader";
+import { expertForgotPassword } from "../redux/actions/authActions";
 
 function ForgetPassword() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state?.authReducer);
   const initialState = {
     email: "",
   };
@@ -20,6 +22,10 @@ function ForgetPassword() {
     };
     dispatch(expertForgotPassword({ payload: values, callback }));
   };
+
+  if (isLoading) {
+    return <SapienzeLoader/>;
+  }
   return (
     <>
       <section className="">

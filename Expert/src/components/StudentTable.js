@@ -45,7 +45,6 @@ const StudentTable = () => {
                 {/* <td>12</td>
                 <td>580</td> */}
                 <td>
-                  {console.log(student)}
                   <span
                     className={`ct_badge ${getStatusClass(
                       student?.status

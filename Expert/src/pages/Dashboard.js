@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import Siderbar from "../layout/sidebar";
-import Header from "../layout/header";
 import StudentTable from "../components/StudentTable";
-import { fetchProfile } from "../redux/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchProfile } from "../redux/actions/authActions";
 import { fetchDashboard } from "../redux/actions/studentActions";
+import SapienzeLoader from "../components/Loader/SapienzeLoader";
 
 function ExpertDashboard() {
   const dispatch = useDispatch();
@@ -16,17 +15,11 @@ function ExpertDashboard() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <SapienzeLoader/>;
   }
   return (
     <>
-      <main>
-        {/* Expert Sidebaar */}
-        <Siderbar />
-        <div className="ct_right_content">
-          {/* expert header */}
-          <Header />
-          <div className="ct_inner_dashbaord_main">
+      <div className="ct_inner_dashbaord_main">
             <h3 className="ct_fs_35 ct_fw_600 py-4">Dashboard</h3>
             <div className="row">
               {cardData.map((card, index) => (
@@ -67,8 +60,6 @@ function ExpertDashboard() {
               </div>
             </div>
           </div>
-        </div>
-      </main>
     </>
   );
 }

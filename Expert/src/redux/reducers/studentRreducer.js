@@ -12,7 +12,6 @@ const initialState = {
   students: [],
   studentDetail: {},
   testList: [],
-
   cardData: [
     {
       title: "Total Mock Test",
@@ -101,7 +100,6 @@ const studentSlice = createSlice({
     // filter-students
     builder.addCase(filterStudents.fulfilled, (state, action) => {
       const { allStudents } = action?.payload || {};
-      console.log({ object: allStudents });
       state.students = allStudents;
       state.isLoading = false;
     });
