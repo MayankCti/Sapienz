@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Siderbar from "../layout/sidebar";
-import Header from "../layout/header";
-import { pageRoutes } from "../routes/path";
 import { Formik } from "formik";
+import React, { useState } from "react";
+import { pageRoutes } from "../routes/path";
+import { useNavigate } from "react-router-dom";
+import ErrorMessage from "../components/ErrorMessage";
 import { changePasswordSchema } from "../utils/schema";
 import { useDispatch, useSelector } from "react-redux";
 import { expertChangePassword } from "../redux/actions/authActions";
-import ErrorMessage from "../components/ErrorMessage";
+import SapienzeLoader from "../components/Loader/SapienzeLoader";
 
 function ChangePassword() {
   const dispatch = useDispatch();
@@ -35,17 +34,11 @@ function ChangePassword() {
   const navigate = useNavigate();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <SapienzeLoader/>;
   }
   return (
     <>
-      <main>
-        {/* Expert Sidebaar */}
-        <Siderbar />
-        <div className="ct_right_content">
-          {/* expert header */}
-          <Header />
-          <div className="ct_inner_dashbaord_main">
+        <div className="ct_inner_dashbaord_main">
             <div className="ct_white_bg p-4">
               <div className="d-flex align-items-center justify-content-between gap-2 mb-4 flex-wrap">
                 <h4 className="ct_fs_24 ps-md-4 ct_fw_600">Change Password</h4>
@@ -204,8 +197,6 @@ function ChangePassword() {
               </div>
             </div>
           </div>
-        </div>
-      </main>
     </>
   );
 }

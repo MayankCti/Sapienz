@@ -1,9 +1,12 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { pageRoutes } from "../routes/path";
+import { useDispatch } from "react-redux";
+import { toggleChange } from "../redux/reducers/authReducer";
 
 function Sidebar() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
   const menuItems = [
     {
@@ -30,8 +33,11 @@ function Sidebar() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="ct_side_bar">
-      <div className="ct_close_menu">
+    <div className="ct_side_bar ">
+      <div
+        className="ct_close_menu"
+        onClick={() => dispatch(toggleChange(false))}
+      >
         <i className="fa-solid fa-xmark" />
       </div>
       <div className="ct_logo">
@@ -42,11 +48,11 @@ function Sidebar() {
           <li key={index}>
             <a
               href="javascript:void(0)"
-              onClick={() => navigate(item.route)}
-              className={isActive(item.route) ? "active" : ""}
+              onClick={() => navigate(item?.route)}
+              className={isActive(item?.route) ? "active" : ""}
             >
-              <img src={item.iconSrc} alt={`${item.label} Icon`} />
-              {item.label}
+              <img src={item?.iconSrc} alt={`${item?.label} Icon`} />
+              {item?.label}
             </a>
           </li>
         ))}

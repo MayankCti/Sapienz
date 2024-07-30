@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { pageRoutes } from "../routes/path";
 import { Formik } from "formik";
+import React, { useState } from "react";
+import { pageRoutes } from "../routes/path";
 import { signupSchema } from "../utils/schema";
-import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
+import { useDispatch, useSelector } from "react-redux";
 import { expertSignup } from "../redux/actions/authActions";
+import SapienzeLoader from "../components/Loader/SapienzeLoader";
 
 function Signup() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function Signup() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <SapienzeLoader/>;
   }
   return (
     <>

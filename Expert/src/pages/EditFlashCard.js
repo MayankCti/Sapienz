@@ -1,6 +1,4 @@
 import { message } from "antd";
-import Header from "../layout/header";
-import Sidebar from "../layout/sidebar";
 import { pageRoutes } from "../routes/path";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
@@ -11,6 +9,7 @@ import {
   updateFlashCard,
 } from "../redux/actions/flashCardActions";
 import { useDispatch, useSelector } from "react-redux";
+import SapienzeLoader from "../components/Loader/SapienzeLoader";
 import CategorySelect from "../components/formInputs/CategorySelect";
 
 function EditFlashCard() {
@@ -73,14 +72,12 @@ function EditFlashCard() {
     } else {
       validator.showMessages();
       message.error("Please fill out all fields");
-      console.log(validator?.errorMessages);
       forceUpdate(1);
     }
   };
   // set card details
   const fetchCarddetails = () => {
     if (!CardDetails) return;
-    console.log({ CardDetails });
     setCategoryId(CardDetails?.category_id);
     setType(CardDetails?.flash_card_type);
     setQuestion(CardDetails?.question);
@@ -104,240 +101,210 @@ function EditFlashCard() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <SapienzeLoader />;
   }
   return (
     <>
-      <main>
-        {/* This sidebar is not Same   */}
-        <Sidebar />
-        {/* sidebar end */}
-
-        <div className="ct_right_content">
-          {/* expert header */}
-          <Header />
-
-          <div className="ct_inner_dashbaord_main">
-            <div className="ct_white_bg p-4">
-              <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
-                <h4 className="ct_fs_24 ps-4 ct_fw_600">Flash Card Details</h4>
-                <div className="d-flex align-items-center gap-3">
-                  <div className="ms-4 d-flex align-items-center gap-3">
-                    <a
-                      href="javascript:void(0)"
-                      data-bs-toggle="modal"
-                      data-bs-target="#ct_confirmation_modal"
-                      className="ct_blue_btn ct_delete_btn1 py-3 ct_btn_h_48"
-                    >
-                      Delete Flash Card
-                    </a>
-                  </div>
-                </div>
+      <div className="ct_inner_dashbaord_main">
+        <div className="ct_white_bg p-4">
+          <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
+            <h4 className="ct_fs_24 ps-4 ct_fw_600">Flash Card Details</h4>
+            <div className="d-flex align-items-center gap-3">
+              <div className="ms-4 d-flex align-items-center gap-3">
+                <a
+                  href="javascript:void(0)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#ct_confirmation_modal"
+                  className="ct_blue_btn ct_delete_btn1 py-3 ct_btn_h_48"
+                >
+                  Delete Flash Card
+                </a>
               </div>
-              <div className="row">
-                <div className="col-md-6 mx-auto">
-                  <div className="ct_border_1_black">
-                    <form onSubmit={handleUpdate}>
-                      <h4 className="ct_fs_24 text-center ct_fw_600">
-                        Edit Details
-                      </h4>
-                      <div className="row mt-4">
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-6 mx-auto">
+              <div className="ct_border_1_black">
+                <form onSubmit={handleUpdate}>
+                  <h4 className="ct_fs_24 text-center ct_fw_600">
+                    Edit Details
+                  </h4>
+                  <div className="row mt-4">
+                    <div className="col-md-12 mb-4">
+                      <div className="form-group">
+                        <label htmlFor="" className="mb-2 ct_fw_500">
+                          Type <span className="ct_required_text">*</span>
+                        </label>
+                        <select
+                          className="ct_input form-control"
+                          value={type}
+                          onChange={(e) => {
+                            setType(e.target.value);
+                            e.target.value = "Single Option" && setAnswer("");
+                          }}
+                        >
+                          <option value="Multi Options">Multi Options</option>
+                          <option value="Single Option">Single Option</option>
+                        </select>
+                        {validator.message("type", type, "required")}
+                      </div>
+                    </div>
+                    <div className="col-md-12 mb-4">
+                      <div className="form-group">
+                        <label htmlFor="" className="mb-2 ct_fw_500">
+                          Question <span className="ct_required_text">*</span>
+                        </label>
+                        <textarea
+                          className="ct_input form-control h-auto"
+                          rows={3}
+                          value={question}
+                          onChange={(e) => setQuestion(e.target.value)}
+                        />
+                      </div>
+                      {validator.message("question", question, "required")}
+                    </div>
+                    {type == "Multi Options" && (
+                      <>
+                        <div className="col-md-6 mb-4">
+                          <div className="form-group">
+                            <label htmlFor="" className="mb-2 ct_fw_500">
+                              Option 1{" "}
+                              <span className="ct_required_text">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              name="option1"
+                              value={option1}
+                              onChange={(e) => setOption1(e.target.value)}
+                              className="ct_input form-control"
+                              placeholder="Answer"
+                            />
+                          </div>
+                          {validator.message("option1", option1, "required")}
+                        </div>
+                        <div className="col-md-6 mb-4">
+                          <div className="form-group">
+                            <label htmlFor="" className="mb-2 ct_fw_500">
+                              Option 2{" "}
+                              <span className="ct_required_text">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              name="option2"
+                              value={option2}
+                              onChange={(e) => setOption2(e.target.value)}
+                              className="ct_input form-control"
+                              placeholder="Answer"
+                            />
+                          </div>
+                          {validator.message("option2", option2, "required")}
+                        </div>
+                        <div className="col-md-6 mb-4">
+                          <div className="form-group">
+                            <label htmlFor="" className="mb-2 ct_fw_500">
+                              Option 3{" "}
+                              <span className="ct_required_text">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              name="option3"
+                              value={option3}
+                              onChange={(e) => setOption3(e.target.value)}
+                              className="ct_input form-control"
+                              placeholder="Answer"
+                            />
+                          </div>
+                          {validator.message("option3", option3, "required")}
+                        </div>
+                        <div className="col-md-6 mb-4">
+                          <div className="form-group">
+                            <label htmlFor="" className="mb-2 ct_fw_500">
+                              Option 4{" "}
+                              <span className="ct_required_text">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              name="option4"
+                              value={option4}
+                              onChange={(e) => setOption4(e.target.value)}
+                              className="ct_input form-control"
+                              placeholder="Answer"
+                            />
+                          </div>
+                          {validator.message("option4", option4, "required")}
+                        </div>
+
                         <div className="col-md-12 mb-4">
                           <div className="form-group">
                             <label htmlFor="" className="mb-2 ct_fw_500">
-                              Type <span className="ct_required_text">*</span>
+                              Correct Answer
+                              <span className="ct_required_text">*</span>
                             </label>
                             <select
                               className="ct_input form-control"
-                              value={type}
-                              onChange={(e) => setType(e.target.value)}
+                              value={answer}
+                              onChange={(e) => setAnswer(e.target.value)}
                             >
-                              <option value="Multi Options">
-                                Multi Options
-                              </option>
-                              <option value="Single Option">
-                                Single Option
-                              </option>
+                              <option value="option1">Option 1</option>
+                              <option value="option2">Option 2</option>
+                              <option value="option3">Option 3</option>
+                              <option value="option4">Option 4</option>
                             </select>
-                            {validator.message("type", type, "required")}
                           </div>
+                          {validator.message("answer", answer, "required")}
                         </div>
-                        <div className="col-md-12 mb-4">
-                          <div className="form-group">
-                            <label htmlFor="" className="mb-2 ct_fw_500">
-                              Question{" "}
-                              <span className="ct_required_text">*</span>
-                            </label>
-                            <textarea
-                              className="ct_input form-control h-auto"
-                              rows={3}
-                              value={question}
-                              onChange={(e) => setQuestion(e.target.value)}
-                            />
-                          </div>
-                          {validator.message("question", question, "required")}
-                        </div>
-                        {type == "Multi Options" && (
-                          <>
-                            <div className="col-md-6 mb-4">
-                              <div className="form-group">
-                                <label htmlFor="" className="mb-2 ct_fw_500">
-                                  Option 1{" "}
-                                  <span className="ct_required_text">*</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  name="option1"
-                                  value={option1}
-                                  onChange={(e) => setOption1(e.target.value)}
-                                  className="ct_input form-control"
-                                  placeholder="Answer"
-                                />
-                              </div>
-                              {validator.message(
-                                "option1",
-                                option1,
-                                "required"
-                              )}
-                            </div>
-                            <div className="col-md-6 mb-4">
-                              <div className="form-group">
-                                <label htmlFor="" className="mb-2 ct_fw_500">
-                                  Option 2{" "}
-                                  <span className="ct_required_text">*</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  name="option2"
-                                  value={option2}
-                                  onChange={(e) => setOption2(e.target.value)}
-                                  className="ct_input form-control"
-                                  placeholder="Answer"
-                                />
-                              </div>
-                              {validator.message(
-                                "option2",
-                                option2,
-                                "required"
-                              )}
-                            </div>
-                            <div className="col-md-6 mb-4">
-                              <div className="form-group">
-                                <label htmlFor="" className="mb-2 ct_fw_500">
-                                  Option 3{" "}
-                                  <span className="ct_required_text">*</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  name="option3"
-                                  value={option3}
-                                  onChange={(e) => setOption3(e.target.value)}
-                                  className="ct_input form-control"
-                                  placeholder="Answer"
-                                />
-                              </div>
-                              {validator.message(
-                                "option3",
-                                option3,
-                                "required"
-                              )}
-                            </div>
-                            <div className="col-md-6 mb-4">
-                              <div className="form-group">
-                                <label htmlFor="" className="mb-2 ct_fw_500">
-                                  Option 4{" "}
-                                  <span className="ct_required_text">*</span>
-                                </label>
-                                <input
-                                  type="text"
-                                  name="option4"
-                                  value={option4}
-                                  onChange={(e) => setOption4(e.target.value)}
-                                  className="ct_input form-control"
-                                  placeholder="Answer"
-                                />
-                              </div>
-                              {validator.message(
-                                "option4",
-                                option4,
-                                "required"
-                              )}
-                            </div>
-
-                            <div className="col-md-12 mb-4">
-                              <div className="form-group">
-                                <label htmlFor="" className="mb-2 ct_fw_500">
-                                  Correct Answer
-                                  <span className="ct_required_text">*</span>
-                                </label>
-                                <select
-                                  className="ct_input form-control"
-                                  value={answer}
-                                  onChange={(e) => setAnswer(e.target.value)}
-                                >
-                                  <option value="option1">Option 1</option>
-                                  <option value="option2">Option 2</option>
-                                  <option value="option3">Option 3</option>
-                                  <option value="option4">Option 4</option>
-                                </select>
-                              </div>
-                              {validator.message("answer", answer, "required")}
-                            </div>
-                          </>
-                        )}
-                        <div className="col-md-12 mb-4">
-                          <div className="form-group">
-                            <label htmlFor="" className="mb-2 ct_fw_500">
-                              Category
-                              <span className="ct_required_text">*</span>
-                            </label>
-                            <CategorySelect
-                              isAll={false}
-                              className={"ct_input form-control"}
-                              options={categories}
-                              value={categoryId}
-                              onChange={setCategoryId}
-                            />
-                          </div>
-                        </div>
-                        {type == "Single Option" && (
-                          <div className="col-md-12 mb-4">
-                            <div className="form-group">
-                              <label htmlFor="" className="mb-2 ct_fw_500">
-                                Answer{" "}
-                                <span className="ct_required_text">*</span>
-                              </label>
-                              <input
-                                type="text"
-                                name="answer"
-                                value={answer}
-                                onChange={(e) => setAnswer(e.target.value)}
-                                className="ct_input form-control"
-                                placeholder="Answer"
-                              />
-                            </div>
-                            {validator.message("answer", answer, "required")}
-                          </div>
-                        )}
-                        <div className="d-flex align-items-center gap-3">
-                          <div className="ms-4 d-flex align-items-center gap-3">
-                            <button
-                              type="submit"
-                              className="ct_blue_btn py-3 ct_btn_h_48"
-                            >
-                              Update
-                            </button>
-                          </div>
-                        </div>
+                      </>
+                    )}
+                    <div className="col-md-12 mb-4">
+                      <div className="form-group">
+                        <label htmlFor="" className="mb-2 ct_fw_500">
+                          Category
+                          <span className="ct_required_text">*</span>
+                        </label>
+                        <CategorySelect
+                          isAll={false}
+                          className={"ct_input form-control"}
+                          options={categories}
+                          value={categoryId}
+                          onChange={setCategoryId}
+                        />
                       </div>
-                    </form>
+                    </div>
+                    {type == "Single Option" && (
+                      <div className="col-md-12 mb-4">
+                        <div className="form-group">
+                          <label htmlFor="" className="mb-2 ct_fw_500">
+                            Answer <span className="ct_required_text">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            name="answer"
+                            value={answer}
+                            onChange={(e) => setAnswer(e.target.value)}
+                            className="ct_input form-control"
+                            placeholder="Answer"
+                          />
+                        </div>
+                        {validator.message("answer", answer, "required")}
+                      </div>
+                    )}
+                    <div className="d-flex align-items-center gap-3">
+                      <div className="ms-4 d-flex align-items-center gap-3">
+                        <button
+                          type="submit"
+                          className="ct_blue_btn py-3 ct_btn_h_48"
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
-      </main>
+      </div>
 
       {/* Confirmation model */}
       <div

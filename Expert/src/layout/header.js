@@ -2,15 +2,22 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { pageRoutes } from "../routes/path";
 import { clearAuth, getProfile } from "../utils/pip";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleChange } from "../redux/reducers/authReducer";
 
 function Header() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isToggle } = useSelector((state) => state.authReducer);
   const { user_name, expert_profile } = getProfile();
   return (
     <>
       <div className="ct_right_header">
         <div className="ct_right_header_left">
-          <div className="ct_toggle_bar">
+          <div
+            className="ct_toggle_bar"
+            onClick={() => dispatch(toggleChange(!isToggle))}
+          >
             <i className="fa-solid fa-bars" />
           </div>
           {/* <div className="ct_head_search">
