@@ -7,6 +7,7 @@ import {
   updateFlashCard,
   deleteFlashCard,
   addMockTest,
+  updateMockTestStatus,
 } from "../actions/flashCardActions";
 
 const initialState = {
@@ -98,6 +99,18 @@ const flashCardSlice = createSlice({
     builder.addCase(fetchMockTestList.rejected, (state, action) => {
       state.isLoading = false;
     });
+    // update-mock-test-status
+    builder.addCase(updateMockTestStatus.fulfilled, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(updateMockTestStatus.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(updateMockTestStatus.rejected, (state, action) => {
+      state.isLoading = false;
+    });
+
+
   },
 });
 

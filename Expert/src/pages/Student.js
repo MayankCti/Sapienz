@@ -6,20 +6,46 @@ import { pageRoutes } from "../routes/path";
 import StudentTable from "../components/StudentTable";
 import {
   fetchDashboard,
-  fetchStudentList,
+  filterStudents,
 } from "../redux/actions/studentActions";
 import { useDispatch, useSelector } from "react-redux";
 import { getDateFormat, getStandard } from "../utils/pip";
+import { toggleBlock } from "../redux/reducers/studentRreducer";
 
 function Student() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isLoading } = useSelector((state) => state?.studentReducer);
-  const list = useSelector((state) => state?.studentReducer?.students);
-  const [students, setStudents] = useState(list);
+  const { isLoading, students, isBlock } = useSelector(
+    (state) => state?.studentReducer
+  );
+  const [fromDate, setFromDate] = useState(null);
+  const [toDate, setToDate] = useState(null);
+  const [status, setStatus] = useState("");
+  const [url, setUrl] = useState({});
+
+  const handleStatusChange = (type, e) => {
+    const { value } = e.target;
+    switch (type) {
+      case "fromDate":
+        setUrl({ ...url, fromDate: value });
+        setFromDate(value);
+        break;
+      case "toDate":
+        setUrl({ ...url, toDate: value });
+        setToDate(value);
+        break;
+      case "status":
+        setUrl({ ...url, status: value });
+        setStatus(value);
+        break;
+    }
+  };
 
   useEffect(() => {
-    // dispatch(fetchStudentList());
+    dispatch(filterStudents(url));
+  }, [url]);
+
+  useEffect(() => {
     dispatch(fetchDashboard());
   }, []);
 
@@ -43,13 +69,19 @@ function Student() {
                     <input
                       type="date"
                       className="form-control ct_grey_input"
-                      id="floatingInputValue"
+                      id="floatingInputValue1"
+                      onChange={(e) => handleStatusChange("fromDate", e)}
+                      value={fromDate}
+                      max={toDate}
                     />
-                    <label htmlFor="floatingInputValue ">From Date</label>
+                    <label htmlFor="floatingInputValue1">From Date</label>
                   </form>
                   <form className="form-floating">
                     <input
                       type="date"
+                      onChange={(e) => handleStatusChange("toDate", e)}
+                      value={toDate}
+                      min={fromDate}
                       className="form-control ct_grey_input"
                       id="floatingInputValue"
                     />
@@ -59,12 +91,14 @@ function Student() {
                     <select
                       className="form-select ct_grey_input"
                       id="floatingSelect"
+                      onChange={(e) => handleStatusChange("status", e)}
+                      value={status}
                       aria-label="Floating label select example"
                     >
-                      <option selected="">All</option>
-                      <option value={1}>Best</option>
-                      <option value={2}>Average</option>
-                      <option value={3}>poor</option>
+                      <option value={""}>All</option>
+                      <option value={"best"}>Best</option>
+                      <option value={"average"}>Average</option>
+                      <option value={"poor"}>Poor</option>
                     </select>
                     <label htmlFor="floatingSelect">Status</label>
                   </div>
@@ -78,28 +112,26 @@ function Student() {
                 >
                   <li className="nav-item" role="presentation">
                     <button
-                      className="nav-link active"
+                      className={`nav-link ${isBlock ? "active" : ""} `}
                       id="pills-expert_column-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-expert_column"
                       type="button"
                       role="tab"
-                      aria-controls="pills-expert_column"
-                      aria-selected="true"
+                      onClick={() => {
+                        dispatch(toggleBlock(true));
+                      }}
                     >
                       <i className="bi bi-grid" />
                     </button>
                   </li>
                   <li className="nav-item" role="presentation">
                     <button
-                      className="nav-link"
+                      className={`nav-link ${!isBlock ? "active" : ""} `}
                       id="pills-expert-list-tab"
-                      data-bs-toggle="pill"
-                      data-bs-target="#pills-expert-list"
                       type="button"
                       role="tab"
-                      aria-controls="pills-expert-list"
-                      aria-selected="false"
+                      onClick={() => {
+                        dispatch(toggleBlock(false));
+                      }}
                     >
                       <i className="bi bi-list-task" />
                     </button>
@@ -107,10 +139,9 @@ function Student() {
                 </ul>
                 <div className="tab-content" id="pills-tabContent">
                   <div
-                    className="tab-pane fade show active"
+                    className={`tab-pane fade ${isBlock ? "show active" : ""}`}
                     id="pills-expert_column"
                     role="tabpanel"
-                    aria-labelledby="pills-expert_column-tab"
                   >
                     <div className="row">
                       {students?.length <= 0 && (
@@ -125,7 +156,9 @@ function Student() {
                             <a
                               href="javascript:void(0)"
                               onClick={() =>
-                                navigate(pageRoutes?.studentDetails,{state : {id:student?.id}})
+                                navigate(pageRoutes?.studentDetails, {
+                                  state: { id: student?.id },
+                                })
                               }
                               className="text-dark"
                             >
@@ -162,10 +195,9 @@ function Student() {
                     </div>
                   </div>
                   <div
-                    className="tab-pane fade"
+                    className={`tab-pane fade ${!isBlock ? "show active" : ""}`}
                     id="pills-expert-list"
                     role="tabpanel"
-                    aria-labelledby="pills-expert-list-tab"
                   >
                     <div className="table-responsive mt-4">
                       <StudentTable />

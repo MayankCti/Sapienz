@@ -8,12 +8,16 @@ import { fetchDashboard } from "../redux/actions/studentActions";
 
 function ExpertDashboard() {
   const dispatch = useDispatch();
-  const { cardData } = useSelector((state) => state?.studentReducer);
+  const { cardData, isLoading } = useSelector((state) => state?.studentReducer);
 
   useEffect(() => {
     dispatch(fetchProfile());
     dispatch(fetchDashboard());
   }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <main>
