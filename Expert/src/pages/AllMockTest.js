@@ -8,6 +8,7 @@ import CategorySelect from "../components/formInputs/CategorySelect";
 import {
   fetchCategoryList,
   fetchMockTestList,
+  updateMockTestStatus,
 } from "../redux/actions/flashCardActions";
 
 function AllMockTest() {
@@ -47,6 +48,13 @@ function AllMockTest() {
     dispatch(fetchCategoryList());
     dispatch(fetchMockTestList());
   }, []);
+
+  const handleStatusUpdate = async (values) => {
+    const callback = (response) => {
+      if (response.success) dispatch(fetchMockTestList());
+    };
+    dispatch(updateMockTestStatus({ payload: values, callback }));
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -120,7 +128,7 @@ function AllMockTest() {
                             <td>{item?.test_duration}</td>
                             <td>{item?.totalQuestions}</td>
                             <td>{item?.total_mark}</td>
-                            <td>
+                            <td onClick={()=>handleStatusUpdate({mock_id:item?.id,status:item?.status == 1 ? 0 : 1})}>
                               <label className="ct_switch">
                                 <input
                                   type="checkbox"

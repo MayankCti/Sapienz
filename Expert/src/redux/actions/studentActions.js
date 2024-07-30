@@ -44,3 +44,23 @@ export const fetchStudentDetails = createAsyncThunk(
     } catch (error) {}
   }
 );
+
+// filter-students
+export const filterStudents = createAsyncThunk(
+  "filter-students",
+  async (props) => {
+    const { fromDate, toDate, status } = props;
+    const params = {};
+    if (fromDate) params.fromDate = fromDate;
+    if (status) params.status = status;
+    if (toDate) params.toDate = toDate;
+    try {
+      const response = await API_REQUEST({
+        url: expertDashboardAPI,
+        method: "GET",
+        params: params,
+      });
+      return response;
+    } catch (error) {}
+  }
+);

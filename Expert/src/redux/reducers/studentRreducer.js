@@ -3,13 +3,16 @@ import {
   fetchDashboard,
   fetchStudentList,
   fetchStudentDetails,
+  filterStudents,
 } from "../actions/studentActions";
 
 const initialState = {
   isLoading: true,
+  isBlock: true,
   students: [],
   studentDetail: {},
   testList: [],
+
   cardData: [
     {
       title: "Total Mock Test",
@@ -43,7 +46,11 @@ const initialState = {
 const studentSlice = createSlice({
   name: "flashCard",
   initialState,
-  reducers: {},
+  reducers: {
+    toggleBlock: (state, action) => {
+      state.isBlock = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     // fetch-student-list
     builder.addCase(fetchStudentList.fulfilled, (state, action) => {
@@ -66,6 +73,7 @@ const studentSlice = createSlice({
       state.cardData[2].value = myFlashCard ?? 0;
       state.students = allStudents ?? [];
       state.isLoading = false;
+      state.isBlock= true;
     });
     builder.addCase(fetchDashboard.pending, (state, action) => {
       state.isLoading = true;
@@ -89,7 +97,22 @@ const studentSlice = createSlice({
     builder.addCase(fetchStudentDetails.rejected, (state, action) => {
       state.isLoading = false;
     });
+
+    // filter-students
+    builder.addCase(filterStudents.fulfilled, (state, action) => {
+      const { allStudents } = action?.payload || {};
+      console.log({ object: allStudents });
+      state.students = allStudents;
+      state.isLoading = false;
+    });
+    builder.addCase(filterStudents.rejected, (state, action) => {
+      state.isLoading = false;
+    });
+    builder.addCase(filterStudents.pending, (state, action) => {
+      state.isLoading = true;
+    });
   },
 });
 
+export const { toggleBlock } = studentSlice?.actions;
 export default studentSlice.reducer;

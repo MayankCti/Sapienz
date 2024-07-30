@@ -23,6 +23,7 @@ export const deleteFlashCardAPI = "deleteFlashCard"; // delete
 // mock test
 export const fetchMockTestAPI = "fetchMockTest";
 export const createMockTestAPI = "createMockTest";
+export const mockTestVisibilityAPI = "mockTestVisibility";
 
 // Dashboard & Student
 export const fetchAllStudentsByExpertAPI = "fetchAllStudentsByExpert";

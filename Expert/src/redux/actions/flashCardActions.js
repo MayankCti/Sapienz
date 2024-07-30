@@ -7,7 +7,8 @@ import {
   fetchMockTestAPI,
   editFlashCardAPI,
   deleteFlashCardAPI,
-  createMockTestAPI
+  createMockTestAPI,
+  mockTestVisibilityAPI
 } from "../../routes/endPoints";
 import { API_REQUEST } from ".";
 
@@ -24,7 +25,6 @@ export const fetchFlashCardList = createAsyncThunk(
     } catch (error) {}
   }
 );
-
 // add-flash-card
 export const addFlashCard = createAsyncThunk(
   "add-flash-card",
@@ -41,7 +41,6 @@ export const addFlashCard = createAsyncThunk(
     } catch (error) {}
   }
 );
-
 // update-flash-card
 export const updateFlashCard = createAsyncThunk(
   "update-flash-card",
@@ -74,7 +73,6 @@ export const deleteFlashCard = createAsyncThunk(
     } catch (error) {}
   }
 );
-
 // fetch-category-list
 export const fetchCategoryList = createAsyncThunk(
   "fetch-category-list",
@@ -119,6 +117,23 @@ export const fetchMockTestList = createAsyncThunk(
         url: fetchMockTestAPI,
         method: "GET",
       });
+      return response;
+    } catch (error) {}
+  }
+);
+
+// update-mock-test-status
+export const updateMockTestStatus = createAsyncThunk(
+  "update-mock-test-status",
+  async (props) => {
+    const { payload, callback } = props;
+    try {
+      const response = await API_REQUEST({
+        url: mockTestVisibilityAPI,
+        method: "POST",
+        data: payload,
+      });
+      callback(response);
       return response;
     } catch (error) {}
   }
