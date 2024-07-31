@@ -1,0 +1,13 @@
+.ct_redirect_link {
+    color: #0a2fb6;
+    font-weight: 700;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+}
+   .ct_redirect_link i{
+    transform: translateX(5px);
+    animation: link_arrow_move 2s ease infinite;
+   }

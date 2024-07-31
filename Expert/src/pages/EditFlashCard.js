@@ -140,7 +140,7 @@ function EditFlashCard() {
                           value={type}
                           onChange={(e) => {
                             setType(e.target.value);
-                            e.target.value = "Single Option" && setAnswer("");
+                            // e.target.value = "Single Option" && setAnswer("");
                           }}
                         >
                           <option value="Multi Options">Multi Options</option>

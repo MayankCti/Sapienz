@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { pageRoutes } from "../routes/path";
 import { clearAuth, getProfile } from "../utils/pip";
@@ -8,8 +8,9 @@ import { toggleChange } from "../redux/reducers/authReducer";
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isToggle } = useSelector((state) => state.authReducer);
-  const { user_name, expert_profile } = getProfile();
+  const { isToggle } = useSelector((state) => state?.authReducer);
+
+  const { user_name, expert_profile } =getProfile();
   return (
     <>
       <div className="ct_right_header">
@@ -110,6 +111,7 @@ function Header() {
                   href="javascript:void(0)"
                   onClick={() => {
                     clearAuth();
+                    window.location.reload();
                     navigate(pageRoutes?.login);
                   }}
                   type="button"

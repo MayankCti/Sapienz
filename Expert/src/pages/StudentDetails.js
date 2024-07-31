@@ -33,70 +33,75 @@ function StudentDetails() {
               </div>
             </div> */}
           </div>
-          <div className="row">
-            <div className="col-md-12">
-              <div className="ct_flash_card ct_py_70 ct_px_30">
-                <div className="row align-items-center">
-                  <div className="col-xxl-4 mb-4 mb-xxl-0">
-                    <div className="d-flex align-items-center gap-3 flex-wrap">
-                      <img
-                        src="/assets/img/user_profile.png"
-                        alt=""
-                        className="ct_img_148"
-                      />
-                      <div>
-                        <h5 className="ct_fs_28 mb-1 ct_fw_600">
-                          {studentDetail?.studentProfile?.user_name}
-                        </h5>
-                        <p className="mb-0">
-                          {studentDetail?.studentProfile?.classes}
-                          {getStandard(studentDetail?.studentProfile?.classes)}
-                        </p>
-                        <p className="mb-0">
-                          {studentDetail?.studentProfile?.email}{" "}
-                        </p>
-                        <p className="ct_blue_text mb-0">
-                          Active from -{" "}
-                          {getDateFormat(
-                            studentDetail?.studentProfile?.created_at
-                          )}
-                        </p>
+
+          {studentDetail ? (
+            <div className="row">
+              <div className="col-md-12">
+                <div className="ct_flash_card ct_py_70 ct_px_30">
+                  <div className="row align-items-center">
+                    <div className="col-xxl-4 mb-4 mb-xxl-0">
+                      <div className="d-flex align-items-center gap-3 flex-wrap">
+                        <img
+                          src="/assets/img/user_profile.png"
+                          alt=""
+                          className="ct_img_148"
+                        />
+                        <div>
+                          <h5 className="ct_fs_28 mb-1 ct_fw_600">
+                            {studentDetail?.studentProfile?.user_name}
+                          </h5>
+                          <p className="mb-0">
+                            {studentDetail?.studentProfile?.classes}
+                            {getStandard(
+                              studentDetail?.studentProfile?.classes
+                            )}
+                          </p>
+                          <p className="mb-0">
+                            {studentDetail?.studentProfile?.email}{" "}
+                          </p>
+                          <p className="ct_blue_text mb-0">
+                            Active from -{" "}
+                            {getDateFormat(
+                              studentDetail?.studentProfile?.created_at
+                            )}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="col-xxl-8 ">
-                    <div className="ct_grid_3">
-                      <div className="ct_small_box">
-                        <div className="ct_small_box_shadow_icon">
-                          <i className="fa-solid fa-flag" />
+                    <div className="col-xxl-8 ">
+                      <div className="ct_grid_3">
+                        <div className="ct_small_box">
+                          <div className="ct_small_box_shadow_icon">
+                            <i className="fa-solid fa-flag" />
+                          </div>
+                          <div>
+                            <h4 className="ct_fs_28 ct_fw_600">
+                              {studentDetail?.passCount ?? 0}
+                            </h4>
+                            <p className="mb-0">Quiz Passed</p>
+                          </div>
                         </div>
-                        <div>
-                          <h4 className="ct_fs_28 ct_fw_600">
-                            {studentDetail?.passCount ?? 0}
-                          </h4>
-                          <p className="mb-0">Quiz Passed</p>
+                        <div className="ct_small_box">
+                          <div className="ct_small_box_shadow_icon">
+                            <i className="fa-solid fa-clock" />
+                          </div>
+                          <div>
+                            <h4 className="ct_fs_28 ct_fw_600">
+                              {studentDetail?.minimumTiming ?? 0}{" "}
+                            </h4>
+                            <p className="mb-0">Fastest Time hh:mm</p>
+                          </div>
                         </div>
-                      </div>
-                      <div className="ct_small_box">
-                        <div className="ct_small_box_shadow_icon">
-                          <i className="fa-solid fa-clock" />
-                        </div>
-                        <div>
-                          <h4 className="ct_fs_28 ct_fw_600">
-                            {studentDetail?.minimumTiming ?? 0}{" "}
-                          </h4>
-                          <p className="mb-0">Fastest Time hh:mm</p>
-                        </div>
-                      </div>
-                      <div className="ct_small_box">
-                        <div className="ct_small_box_shadow_icon">
-                          <i className="fa-solid fa-circle-check" />
-                        </div>
-                        <div>
-                          <h4 className="ct_fs_28 ct_fw_600">
-                            {studentDetail?.totalCorrectAnswers ?? 0}
-                          </h4>
-                          <p className="mb-0">Correct Answers</p>
+                        <div className="ct_small_box">
+                          <div className="ct_small_box_shadow_icon">
+                            <i className="fa-solid fa-circle-check" />
+                          </div>
+                          <div>
+                            <h4 className="ct_fs_28 ct_fw_600">
+                              {studentDetail?.totalCorrectAnswers ?? 0}
+                            </h4>
+                            <p className="mb-0">Correct Answers</p>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -104,7 +109,9 @@ function StudentDetails() {
                 </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="text-center py-4">No record found.</div>
+          )}
           <div className="table-responsive mt-4">
             <h4 className="ct_fs_24 ps-4 ct_fw_600 mb-3">Given Test Details</h4>
             <table className="table ct_custom_table">
@@ -119,7 +126,7 @@ function StudentDetails() {
                 </tr>
               </thead>
               <tbody>
-                {testList?.length > 0 &&
+                {testList?.length > 0 ? (
                   testList?.map((record) => (
                     <tr key={record?.id}>
                       <td>{record?.testDetails?.test_name}</td>
@@ -129,7 +136,10 @@ function StudentDetails() {
                       <td>{record?.testDetails?.total_mark}</td>
                       <td>{record?.obtain_mark}</td>
                     </tr>
-                  ))}
+                  ))
+                ) : (
+                  <div className="text-center  py-4">No record found.</div>
+                )}
                 {/* <tr>
                       <td>Rustic</td>
                       <td>Physics</td>

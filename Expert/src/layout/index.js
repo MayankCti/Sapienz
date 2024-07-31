@@ -1,16 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import PrivateRoute from "./privateRoutes";
-import expertRoutes from "../routes/path";
-import PageNotFound from "../components/notfound/PageNotFound";
-import { getAuth } from "../utils/pip";
 import Header from "./header";
+
 import Sidebar from "./sidebar";
+import { getAuth } from "../utils/pip";
+import expertRoutes from "../routes/path";
+import PrivateRoute from "./privateRoutes";
 import { useSelector } from "react-redux";
+import PageNotFound from "../components/notfound/PageNotFound";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const Expert = () => {
   const isLogin = getAuth();
   const { isToggle } = useSelector((state) => state.authReducer);
+  console.log(isLogin)
 
   if (!isLogin) {
     return (
@@ -42,7 +44,6 @@ const Expert = () => {
           <Sidebar />
           <div className="ct_right_content">
             <Header />
-
             <Routes>
               {expertRoutes?.map(
                 (item, i) =>
@@ -61,7 +62,7 @@ const Expert = () => {
                     />
                   )
               )}
-              <Route exact path="*" element={<PageNotFound />} />
+              {/* <Route exact path="*" element={<PageNotFound />} /> */}
             </Routes>
           </div>
         </main>

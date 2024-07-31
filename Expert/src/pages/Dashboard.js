@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProfile } from "../redux/actions/authActions";
 import { fetchDashboard } from "../redux/actions/studentActions";
 import SapienzeLoader from "../components/Loader/SapienzeLoader";
+import { pageRoutes } from "../routes/path";
+import { useNavigate } from "react-router-dom";
 
 function ExpertDashboard() {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const { cardData, isLoading } = useSelector((state) => state?.studentReducer);
 
@@ -22,7 +25,7 @@ function ExpertDashboard() {
       <div className="ct_inner_dashbaord_main">
             <h3 className="ct_fs_35 ct_fw_600 py-4">Dashboard</h3>
             <div className="row">
-              {cardData.map((card, index) => (
+              {cardData?.map((card, index) => (
                 <div
                   key={index}
                   className="col-xxl-3 col-xl-6 col-lg-6 col-md-6 mb-4 mb-xxl-0"
@@ -53,7 +56,14 @@ function ExpertDashboard() {
             </div>
             <div className="ct_white_bg ct_mt_28">
               <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
-                <h4 className="ct_fs_24  ct_fw_600">All Students</h4>
+                <h4 className="ct_fs_24  ct_fw_600">Latest Students</h4>
+                <a
+                    href="javascript:void(0)"
+                    onClick={() => navigate(pageRoutes?.student)}
+                    className="ct_redirect_link"
+                  >
+                    All Students<i className="fa-solid fa-arrow-right"></i>
+                  </a>
               </div>
               <div className="table-responsive mt-4">
                 <StudentTable />

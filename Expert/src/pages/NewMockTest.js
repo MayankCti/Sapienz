@@ -15,6 +15,7 @@ import CategorySelect from "../components/formInputs/CategorySelect";
 function NewMockTest() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [categoryId, setCategoryId] = useState();
   const [selectedIds, setSelectedIds] = useState([]);
   const list = useSelector((state) => state?.flashCardReducer?.flashCardData);
   const { isLoading } = useSelector((state) => state?.flashCardReducer);
@@ -56,6 +57,7 @@ function NewMockTest() {
       test_name,
       question_mark: `${question_mark}`,
       test_questions: selectedIds,
+      test_category : categoryId ?? categories[0]?.id
     };
 
     const callback = (response) => {
@@ -126,6 +128,21 @@ function NewMockTest() {
                         />
                       </div>
                     </div>
+                    <div className="col-md-12 mb-4">
+                          <div className="form-group">
+                            <label htmlFor="" className="mb-2 ct_fw_500">
+                              Category
+                              <span className="ct_required_text">*</span>
+                            </label>
+                            <CategorySelect
+                              isAll={false}
+                              className={"ct_input form-control"}
+                              options={categories}
+                              value={categoryId}
+                              onChange={setCategoryId}
+                            />
+                          </div>
+                        </div>
                     <div className="col-md-12 mb-4">
                       <div className="form-group">
                         <label htmlFor="" className="mb-2 ct_fw_500">

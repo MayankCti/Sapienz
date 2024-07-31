@@ -86,8 +86,8 @@ const studentSlice = createSlice({
       return {
         ...state,
         isLoading: false,
-        studentDetail: data,
-        testList: data?.allTestRecords,
+        studentDetail: data ?? null,
+        testList: data?.allTestRecords ?? [],
       };
     });
     builder.addCase(fetchStudentDetails.pending, (state, action) => {

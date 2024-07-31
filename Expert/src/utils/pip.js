@@ -18,7 +18,7 @@ export const saveProfile = (data) => {
 };
 export const getProfile = () => {
   const data = JSON?.parse(localStorage.getItem("EXPERT-PROFILE"));
-  return data;
+  return data ?? {};
 };
 
 // Capitalization
@@ -44,7 +44,7 @@ export const getStandard = (value) => {
 // Date Formate
 export const getDateFormat = (date) => {
   if (!date) return;
-  return moment(date).format("YYYY-MM-DD HH:mm");
+  return moment(date).format("DD-MM-YYYY HH:mm");
 };
 
 // Get status class

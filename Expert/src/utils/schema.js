@@ -94,16 +94,4 @@ export const updateProfileSchema = Yup.object().shape({
       /^[a-zA-Z0-9\s]+$/,
       "Last name can only contain alphanumeric characters and spaces"
     ),
-  profile_images: Yup.mixed()
-    .test("fileType", "Invalid file type", (value) => {
-      if (!value) return true;
-      const validFileTypes = [
-        "image/jpeg",
-        "image/jpg",
-        "image/png",
-        "image/gif",
-      ]; // Example valid file types
-      return validFileTypes.includes(value.type);
-    })
-    .required("Profile Photo is required"),
 });

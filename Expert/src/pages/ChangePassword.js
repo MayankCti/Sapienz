@@ -9,6 +9,7 @@ import { expertChangePassword } from "../redux/actions/authActions";
 import SapienzeLoader from "../components/Loader/SapienzeLoader";
 
 function ChangePassword() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state?.authReducer);
   const [eyes, setEyes] = useState({
@@ -31,7 +32,6 @@ function ChangePassword() {
     dispatch(expertChangePassword({ payload: values, callback }));
   };
 
-  const navigate = useNavigate();
 
   if (isLoading) {
     return <SapienzeLoader/>;

@@ -15,7 +15,7 @@ import Signup from "../pages/Signup";
 import EditProfile from "../pages/EditProfile";
 
 export const pageRoutes = {
-  dashboard: "/expert/",
+  dashboard: "/",
   login: "/expert/login",
   signup: "/expert/signup",
   forgotPassword: "/expert/forgot",
