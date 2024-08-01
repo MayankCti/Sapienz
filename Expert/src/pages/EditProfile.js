@@ -7,12 +7,15 @@ import ErrorMessage from "../components/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import SapienzeLoader from "../components/Loader/SapienzeLoader";
 import { fetchProfile, updateProfile } from "../redux/actions/authActions";
+import { getProfile } from "../utils/pip";
 
 function EditProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { profile, isLoading } = useSelector((state) => state?.authReducer);
+  const {  isLoading } = useSelector((state) => state?.authReducer);
   const [imagePreview, setImagePreview] = useState(null);
+  const data = getProfile()
+  const profile = data;
   const [profile_images, setProfileImages] = useState(profile?.expert_profile);
   const [initialState, setInitialState] = useState({
     first_name: profile?.first_name ?? "",
@@ -84,7 +87,7 @@ function EditProfile() {
                 }) => (
                   <form onSubmit={handleSubmit} className="ps-md-4">
                     <div className="d-flex align-items-center gap-3">
-                      <label for="profile_images" style={{ cursor: "pointer" }}>
+                    <label for="profile_images" style={{ cursor: "pointer" ,position:"relative"}}>
                         <input
                           type="file"
                           onChange={(event) => {
@@ -95,19 +98,29 @@ function EditProfile() {
                         />
 
                         {imagePreview ? (
-                          <img
-                            src={URL.createObjectURL(imagePreview)}
-                            alt=""
-                            className="ct_img_66"
-                          />
+                          <>
+                            {" "}
+                            <img
+                              src={URL.createObjectURL(imagePreview)}
+                              alt=""
+                              className="ct_img_66"
+                            />
+                          </>
                         ) : (
-                          <img
-                            src={profile_images}
-                            alt=""
-                            className="ct_img_66"
-                          />
+                          <>
+                            <img
+                              src={profile_images}
+                              alt=""
+                              className="ct_img_66"
+                            />
+                            <div className="ct_edit_profile_icon_camera">
+                              <i className="fa-solid fa-camera "></i>
+                            </div>
+                          </>
                         )}
                       </label>
+
+
                       <div>
                         <h5 className="ct_fs_20 mb-1">
                           {profile?.user_name ?? ""}
@@ -134,8 +147,7 @@ function EditProfile() {
                             onBlur={handleBlur}
                             value={values?.first_name}
                             className="ct_input form-control"
-                            placeholder="First Name"
-                            defaultValue="Moni"
+                            placeholder="Enter first name"
                           />
 
                           <ErrorMessage
@@ -158,7 +170,7 @@ function EditProfile() {
                             onChange={handleChange}
                             onBlur={handleBlur}
                             value={values?.last_name}
-                            placeholder="Last Name"
+                            placeholder="Enter last name"
                           />
                           <ErrorMessage
                             errors={errors}
@@ -175,7 +187,7 @@ function EditProfile() {
                           <input
                             type="email"
                             className="ct_input form-control"
-                            placeholder="Email"
+                            placeholder="Enter email"
                             value={values?.email}
                             disabled={true}
                           />

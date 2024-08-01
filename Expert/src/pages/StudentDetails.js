@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDateFormat, getStandard } from "../utils/pip";
 import SapienzeLoader from "../components/Loader/SapienzeLoader";
 import { fetchStudentDetails } from "../redux/actions/studentActions";
+import NoRecord from "../components/NoRecord";
 
 function StudentDetails() {
   const student_id = useLocation()?.state?.id;
@@ -110,7 +111,7 @@ function StudentDetails() {
               </div>
             </div>
           ) : (
-            <div className="text-center py-4">No record found.</div>
+            <NoRecord />
           )}
           <div className="table-responsive mt-4">
             <h4 className="ct_fs_24 ps-4 ct_fw_600 mb-3">Given Test Details</h4>
@@ -118,7 +119,7 @@ function StudentDetails() {
               <thead>
                 <tr>
                   <th> Test name</th>
-                  <th>Category / Field</th>
+                  <th>Category</th>
                   <th>Duration</th>
                   <th>Total Questions</th>
                   <th>Marks</th>
@@ -130,7 +131,7 @@ function StudentDetails() {
                   testList?.map((record) => (
                     <tr key={record?.id}>
                       <td>{record?.testDetails?.test_name}</td>
-                      <td>{record?.categoryName}</td>
+                      <td>{record?.category}</td>
                       <td>{record?.testDetails?.test_duration}</td>
                       <td>{record?.totalQuestions}</td>
                       <td>{record?.testDetails?.total_mark}</td>
@@ -138,108 +139,8 @@ function StudentDetails() {
                     </tr>
                   ))
                 ) : (
-                  <div className="text-center  py-4">No record found.</div>
+                  <NoRecord />
                 )}
-                {/* <tr>
-                      <td>Rustic</td>
-                      <td>Physics</td>
-                      <td>10 Minutes</td>
-                      <td>20</td>
-                      <td>80</td>
-                      <td>
-                        <span className="ct_blue_text"> 78</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Rustic</td>
-                      <td>Physics</td>
-                      <td>10 Minutes</td>
-                      <td>20</td>
-                      <td>80</td>
-                      <td>
-                        <span className="ct_blue_text"> 78</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Rustic</td>
-                      <td>Physics</td>
-                      <td>10 Minutes</td>
-                      <td>20</td>
-                      <td>80</td>
-                      <td>
-                        <span className="ct_blue_text"> 78</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Rustic</td>
-                      <td>Physics</td>
-                      <td>10 Minutes</td>
-                      <td>20</td>
-                      <td>80</td>
-                      <td>
-                        <span className="ct_blue_text"> 78</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Rustic</td>
-                      <td>Physics</td>
-                      <td>10 Minutes</td>
-                      <td>20</td>
-                      <td>80</td>
-                      <td>
-                        <span className="ct_blue_text"> 78</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Rustic</td>
-                      <td>Physics</td>
-                      <td>10 Minutes</td>
-                      <td>20</td>
-                      <td>80</td>
-                      <td>
-                        <span className="ct_blue_text"> 78</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Rustic</td>
-                      <td>Physics</td>
-                      <td>10 Minutes</td>
-                      <td>20</td>
-                      <td>80</td>
-                      <td>
-                        <span className="ct_blue_text"> 78</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Rustic</td>
-                      <td>Physics</td>
-                      <td>10 Minutes</td>
-                      <td>20</td>
-                      <td>80</td>
-                      <td>
-                        <span className="ct_blue_text"> 78</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Rustic</td>
-                      <td>Physics</td>
-                      <td>10 Minutes</td>
-                      <td>20</td>
-                      <td>80</td>
-                      <td>
-                        <span className="ct_blue_text"> 78</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Rustic</td>
-                      <td>Physics</td>
-                      <td>10 Minutes</td>
-                      <td>20</td>
-                      <td>80</td>
-                      <td>
-                        <span className="ct_blue_text"> 78</span>
-                      </td>
-                    </tr> */}
               </tbody>
             </table>
           </div>

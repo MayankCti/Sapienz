@@ -95,7 +95,7 @@ function NewMockTest() {
                           value={test_name}
                           onChange={(e) => setTest_name(e.target.value)}
                           className="ct_input form-control"
-                          placeholder="Enter test Name"
+                          placeholder="Enter test name"
                         />
                       </div>
                     </div>

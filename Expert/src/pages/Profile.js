@@ -74,7 +74,7 @@ function Profile() {
                         id="first_name"
                         value={profile?.first_name}
                         className="ct_input form-control"
-                        placeholder="First Name"
+                        placeholder="Enter first name"
                         disabled={true}
                       />
                     </div>
@@ -90,7 +90,7 @@ function Profile() {
                         className="ct_input form-control"
                         id="last_name"
                         value={profile?.last_name}
-                        placeholder="Last Name"
+                        placeholder="Enter last name"
                         disabled={true}
                       />
                     </div>
@@ -103,7 +103,7 @@ function Profile() {
                       <input
                         type="email"
                         className="ct_input form-control"
-                        placeholder="Email"
+                        placeholder="Enter email"
                         value={profile?.email}
                         disabled={true}
                       />

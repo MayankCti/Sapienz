@@ -100,7 +100,7 @@ function Login() {
                               onChange={handleChange}
                               onBlur={handleBlur}
                               value={values?.email}
-                              placeholder="Enter Email"
+                              placeholder="Enter email"
                             />
                             <ErrorMessage
                               errors={errors}
@@ -126,7 +126,7 @@ function Login() {
                               onChange={handleChange}
                               onBlur={handleBlur}
                               value={values?.password}
-                              placeholder="Type your password here"
+                              placeholder="Enter password"
                             />
                             <i
                               className={`fa-regular ct_eye_top ${

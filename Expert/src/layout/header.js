@@ -10,7 +10,7 @@ function Header() {
   const dispatch = useDispatch();
   const { isToggle } = useSelector((state) => state?.authReducer);
 
-  const { user_name, expert_profile } =getProfile();
+  const { user_name, expert_profile } = getProfile();
   return (
     <>
       <div className="ct_right_header">
@@ -29,9 +29,7 @@ function Header() {
         <div className="ct_right_header_right">
           <div className="ct_language_selector">
             <img src="/assets/img/us.png" alt="" />
-            <select className="form-control">
-              <option value="English">English</option>
-            </select>
+            <span value="English">English</span>
           </div>
           <div className="ct_user_profile_head">
             <a

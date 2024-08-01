@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDateFormat, getStandard } from "../utils/pip";
 import { toggleBlock } from "../redux/reducers/studentRreducer";
 import SapienzeLoader from "../components/Loader/SapienzeLoader";
+import NoRecord from "../components/NoRecord";
 
 function Student() {
   const navigate = useNavigate();
@@ -134,7 +135,7 @@ function Student() {
               >
                 <div className="row">
                   {students?.length <= 0 && (
-                    <div className="text-center py-4">No record found.</div>
+                    <NoRecord/>
                   )}
                   {students?.length > 0 &&
                     students?.map((student, index) => (

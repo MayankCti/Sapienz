@@ -140,7 +140,8 @@ function EditFlashCard() {
                           value={type}
                           onChange={(e) => {
                             setType(e.target.value);
-                            // e.target.value = "Single Option" && setAnswer("");
+                            e.target.value == "Single Option" && setAnswer("");
+                            e.target.value == "Multi Options" && setAnswer("option1");
                           }}
                         >
                           <option value="Multi Options">Multi Options</option>
@@ -156,6 +157,7 @@ function EditFlashCard() {
                         </label>
                         <textarea
                           className="ct_input form-control h-auto"
+                          placeholder="Enter question"
                           rows={3}
                           value={question}
                           onChange={(e) => setQuestion(e.target.value)}
@@ -177,7 +179,7 @@ function EditFlashCard() {
                               value={option1}
                               onChange={(e) => setOption1(e.target.value)}
                               className="ct_input form-control"
-                              placeholder="Answer"
+                             placeholder="Enter option 1"
                             />
                           </div>
                           {validator.message("option1", option1, "required")}
@@ -194,7 +196,7 @@ function EditFlashCard() {
                               value={option2}
                               onChange={(e) => setOption2(e.target.value)}
                               className="ct_input form-control"
-                              placeholder="Answer"
+                             placeholder="Enter option 2"
                             />
                           </div>
                           {validator.message("option2", option2, "required")}
@@ -211,7 +213,7 @@ function EditFlashCard() {
                               value={option3}
                               onChange={(e) => setOption3(e.target.value)}
                               className="ct_input form-control"
-                              placeholder="Answer"
+                              placeholder="Enter option 3"
                             />
                           </div>
                           {validator.message("option3", option3, "required")}
@@ -228,7 +230,7 @@ function EditFlashCard() {
                               value={option4}
                               onChange={(e) => setOption4(e.target.value)}
                               className="ct_input form-control"
-                              placeholder="Answer"
+                              placeholder="Enter option 4"
                             />
                           </div>
                           {validator.message("option4", option4, "required")}
@@ -282,7 +284,7 @@ function EditFlashCard() {
                             value={answer}
                             onChange={(e) => setAnswer(e.target.value)}
                             className="ct_input form-control"
-                            placeholder="Answer"
+                            placeholder="Enter answer"
                           />
                         </div>
                         {validator.message("answer", answer, "required")}

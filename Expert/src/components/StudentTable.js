@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { getCapitalization, getDateFormat, getStatusClass } from "../utils/pip";
 import { useLocation, useNavigate } from "react-router-dom";
 import { pageRoutes } from "../routes/path";
+import NoRecord from "./NoRecord";
 
 const StudentTable = () => {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const StudentTable = () => {
     <table className="table ct_custom_table">
       <thead>
         <tr>
-          <th> Students Name</th>
+          <th> Student Name</th>
           <th>Email Address</th>
           <th>Joined Date &amp; Time</th>
           {/* <th>Mock Test</th>
@@ -70,7 +71,7 @@ const StudentTable = () => {
         </tr>
       </thead>
       {students?.length <= 0 && (
-        <div className="text-center py-4">No record found.</div>
+        <NoRecord/>
       )}
       <tbody>
         {pathname == pageRoutes?.dashboard

@@ -9,6 +9,7 @@ import {
 } from "../redux/actions/flashCardActions";
 import SapienzeLoader from "../components/Loader/SapienzeLoader";
 import CategorySelect from "../components/formInputs/CategorySelect";
+import NoRecord from "../components/NoRecord";
 
 function FlashCardList() {
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ function FlashCardList() {
 
           <div className="row ct_flash_card_scroll">
             {flashCardData?.length <= 0 && (
-              <div className="text-center py-4">No record found.</div>
+              <NoRecord/>
             )}
             {flashCardData?.map((card, index) => (
               <>

@@ -108,7 +108,7 @@ function ForgetPassword() {
                           onBlur={handleBlur}
                           value={values?.email}
                           className="form-control ct_input"
-                          placeholder="Enter Email Address"
+                          placeholder="Enter email"
                         />
                         <ErrorMessage
                             errors={errors}

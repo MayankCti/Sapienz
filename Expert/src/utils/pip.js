@@ -2,10 +2,13 @@ import moment from "moment";
 
 // AUTHENTICATION :
 export const setAuth = (token) => {
+  if (!token) return;
   localStorage.setItem("EXPERT-TOKEN", token);
 };
 export const getAuth = () => {
-  return localStorage.getItem("EXPERT-TOKEN");
+   const token = localStorage.getItem("EXPERT-TOKEN");
+   if(!token) return;
+   return token;
 };
 export const clearAuth = () => {
   localStorage.removeItem("EXPERT-TOKEN");
