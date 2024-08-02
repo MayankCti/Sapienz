@@ -1,0 +1,177 @@
+import { Formik } from "formik";
+import React, { useState } from "react";
+import { pageRoutes } from "../routes/path";
+import { loginSchema } from "../utils/schema";
+import { useNavigate } from "react-router-dom";
+import ErrorMessage from "../components/ErrorMessage";
+import { useDispatch, useSelector } from "react-redux";
+import { mainLogin } from "../redux/actions/authActions";
+import SapienzeLoader from "../components/Loader/SapienzeLoader";
+
+function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isLoading } = useSelector((state) => state?.authReducer);
+  const [isEye, setIsEye] = useState(true);
+  const initialState = {
+    email: "",
+    password: "",
+  };
+
+  const handleLogin = async (values) => {
+    const callback = (response) => {
+      if (response.success) navigate(pageRoutes?.dashboard);
+    };
+    dispatch(mainLogin({ payload: values, callback }));
+  };
+
+  if (isLoading) {
+    return <SapienzeLoader />;
+  }
+  return (
+    <>
+      <section className="">
+        <div className="container-fluid">
+          <div className="row">
+            <div className="col-lg-7 mb-4 mb-lg-0">
+              <div className="ct_login_form">
+                <div className="mb-5">
+                  <a
+                    href="javascript:void(0)"
+                    onClick={()=>navigate(-1)}
+                    className="d-flex align-items-center gap-3 text-dark ct_fw_600 ct_fs_20"
+                  >
+                    <i className="fa-solid fa-chevron-left ct_back_login" />
+                    Back{" "}
+                  </a>
+                </div>
+
+                <Formik
+                  initialValues={initialState}
+                  validationSchema={loginSchema}
+                  onSubmit={(values, actions) => {
+                    handleLogin(values);
+                  }}
+                >
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                  }) => (
+                    <form onSubmit={handleSubmit}>
+                      <div className="ct_login_form_cnt">
+                        <div className="ct_mb_50">
+                          <h2 className="ct_fs_35 ct_fw_600 ct_mb_30">
+                            Login{" "}
+                          </h2>
+                          <p className="ct_light_text mb-0">
+                            Lorem Ipsum is simply dummy text of the printing and
+                            typesetting industry.
+                          </p>
+                        </div>
+                        <div className="form-group mb-4">
+                          <label
+                            htmlFor=""
+                            className="d-flex align-items-center justify-content-between mb-3"
+                          >
+                            <span className="ct_fw_600 ct_fs_20">Email</span>
+                          </label>
+                          <div className="position-relative">
+                            <input
+                              type="text"
+                              className="form-control ct_input"
+                              id="email"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.email}
+                              placeholder="Enter email"
+                            />
+                            <ErrorMessage
+                              errors={errors}
+                              touched={touched}
+                              fieldName="email"
+                            />
+                          </div>
+                        </div>
+                        <div className="form-group">
+                          <label
+                            htmlFor=""
+                            className="d-flex align-items-center justify-content-between mb-3"
+                          >
+                            <span className="ct_fw_600 ct_fs_20">Password</span>
+                          </label>
+                          <div className="position-relative">
+                            <input
+                              className="form-control ct_input"
+                              type={isEye ? "password" : "text"}
+                              id="password"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values?.password}
+                              placeholder="Enter password"
+                            />
+                            <i
+                              className={`fa-regular ct_eye_top ${
+                                isEye ? "fa-eye-slash" : "fa-eye"
+                              }`}
+                              onClick={() => setIsEye(!isEye)}
+                            />
+                          </div>
+                          <ErrorMessage
+                            errors={errors}
+                            touched={touched}
+                            fieldName="password"
+                          />
+                        </div>
+                      </div>
+                      <div className="d-flex align-items-center justify-content-between gap-2 flex-wrap mt-3">
+                        <p className="mb-0 ct_color_8E8E8E">
+                          <label
+                            htmlFor=""
+                            className="d-flex align-items-center gap-2"
+                          >
+                            <input
+                              type="checkbox"
+                              className="ct_custom_checkbox"
+                            />
+                            Remember me?
+                          </label>
+                        </p>
+                        <a
+                          href="javascript:void(0)"
+                          onClick={() => navigate(pageRoutes?.forgotPassword)}
+                          className="ct_color_8E8E8E  ct_forgot_password_link"
+                        >
+                          Forgot Passowrd ?
+                        </a>
+                      </div>
+                      <div className="mt-5">
+                        <button
+                          onClick={handleSubmit}
+                          type="submit"
+                          className="ct_blue_btn w-100 justify-content-center"
+                        >
+                          LogIn
+                        </button>
+                      </div>
+                    </form>
+                  )}
+                </Formik>
+              </div>
+            </div>
+            <div className="col-lg-5 mb-4 mb-lg-0 px-lg-0">
+              <div className="ct_login_right_img">
+                <img src="/assets/img/admin_login_img.jpg" alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+export default Login;
