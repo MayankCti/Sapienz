@@ -27,7 +27,7 @@ function Signup() {
   };
 
   if (isLoading) {
-    return <SapienzeLoader/>;
+    return <SapienzeLoader />;
   }
   return (
     <>
@@ -109,7 +109,7 @@ function Signup() {
                               onBlur={handleBlur}
                               value={values?.email}
                               className="form-control ct_input"
-                              placeholder="Enter Email Address"
+                              placeholder="Enter email"
                             />
                             <ErrorMessage
                               errors={errors}
@@ -135,7 +135,7 @@ function Signup() {
                               onBlur={handleBlur}
                               value={values?.user_name}
                               className="form-control ct_input"
-                              placeholder="Enter User name"
+                              placeholder="Enter user name"
                             />
                             <ErrorMessage
                               errors={errors}
@@ -162,7 +162,7 @@ function Signup() {
                               onBlur={handleBlur}
                               value={values?.password}
                               className="form-control ct_input"
-                              placeholder="Type your password here"
+                              placeholder="Enter password"
                             />
                             <i
                               className={`fa-regular ct_eye_top ${
@@ -179,7 +179,7 @@ function Signup() {
                         </div>
                       </div>
                       <div className="mt-5">
-                        <button className="ct_blue_btn w-100">Register</button>
+                        <button className="ct_blue_btn w-100 justify-content-center">Register</button>
                       </div>
                       <p className="text-center mt-4">
                         Already have any account?{" "}

@@ -2,10 +2,13 @@ import moment from "moment";
 
 // AUTHENTICATION :
 export const setAuth = (token) => {
+  if (!token) return;
   localStorage.setItem("EXPERT-TOKEN", token);
 };
 export const getAuth = () => {
-  return localStorage.getItem("EXPERT-TOKEN");
+   const token = localStorage.getItem("EXPERT-TOKEN");
+   if(!token) return;
+   return token;
 };
 export const clearAuth = () => {
   localStorage.removeItem("EXPERT-TOKEN");
@@ -18,7 +21,7 @@ export const saveProfile = (data) => {
 };
 export const getProfile = () => {
   const data = JSON?.parse(localStorage.getItem("EXPERT-PROFILE"));
-  return data;
+  return data ?? {};
 };
 
 // Capitalization
@@ -44,7 +47,7 @@ export const getStandard = (value) => {
 // Date Formate
 export const getDateFormat = (date) => {
   if (!date) return;
-  return moment(date).format("YYYY-MM-DD HH:mm");
+  return moment(date).format("DD-MM-YYYY HH:mm");
 };
 
 // Get status class

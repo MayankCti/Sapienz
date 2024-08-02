@@ -1,5 +1,11 @@
-export const BASE_URL = "http://192.168.29.100:4002/api/experts_router/";
-export const BASE_URL1 = "http://192.168.29.100:4002/api/admin_router/";
+// Local
+// export const BASE_URL = "http://192.168.29.100:4002/api/experts_router/";
+// export const BASE_URL1 = "http://192.168.29.100:4002/api/admin_router/";
+
+// Live
+export const BASE_URL = "http://51.20.226.33:4000/api/experts_router/";
+export const BASE_URL1 = "http://51.20.226.33:4000/api/admin_router/";
+
 
 // authentication
 export const loginAPI = "login";

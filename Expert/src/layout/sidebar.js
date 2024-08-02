@@ -30,7 +30,7 @@ function Sidebar() {
       label: "Mock Test",
     },
   ];
-  const isActive = (path) => location.pathname === path;
+  const isActive = (path) => location?.pathname === path;
 
   return (
     <div className="ct_side_bar ">

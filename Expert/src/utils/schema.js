@@ -4,7 +4,7 @@ import * as Yup from "yup";
 export const signupSchema = Yup.object().shape({
   email: Yup.string()
     .email("Please enter a valid email address")
-    .required("Please enter a valid email address")
+    .required("Please enter email address")
     .matches(
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
       "Please enter a valid email address"
@@ -30,7 +30,7 @@ export const signupSchema = Yup.object().shape({
 export const loginSchema = Yup.object().shape({
   email: Yup.string()
     .email("Please enter a valid email address")
-    .required("Please enter a valid email address")
+    .required("Please enter email address")
     .matches(
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
       "Please enter a valid email address"
@@ -48,7 +48,7 @@ export const loginSchema = Yup.object().shape({
 export const forgotPasswordSchema = Yup.object().shape({
   email: Yup.string()
     .email("Please enter a valid email address")
-    .required("Please enter a valid email address")
+    .required("Please enter email address")
     .matches(
       /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/,
       "Please enter a valid email address"
@@ -62,7 +62,7 @@ export const changePasswordSchema = Yup.object().shape({
     .min(8, "Current Password cannot be less then 8 characters")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%&'*+-.,:;<=>?^_`{|}~])/,
-      "Please enter a valid password"
+      "Strong passwords require at least 1 lowercase letter, 1 uppercase letter, 1 number, and 1 special character."
     ),
   new_password: Yup.string()
     .required("Please enter new password")
@@ -94,16 +94,4 @@ export const updateProfileSchema = Yup.object().shape({
       /^[a-zA-Z0-9\s]+$/,
       "Last name can only contain alphanumeric characters and spaces"
     ),
-  profile_images: Yup.mixed()
-    .test("fileType", "Invalid file type", (value) => {
-      if (!value) return true;
-      const validFileTypes = [
-        "image/jpeg",
-        "image/jpg",
-        "image/png",
-        "image/gif",
-      ]; // Example valid file types
-      return validFileTypes.includes(value.type);
-    })
-    .required("Profile Photo is required"),
 });

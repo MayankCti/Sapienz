@@ -3,13 +3,10 @@ import { getCapitalization } from "../utils/pip";
 
 const FlashCard = ({ card, index, onClick }) => {
   return (
-    <div className="col-xl-4 mb-4">
+    <div className="col-xxl-4 col-xl-6 mb-4">
       <a href="javascript:void(0)" className="text-dark">
         <div className="ct_flash_card pb-0">
-          <i
-            className="fa-regular fa-pen-to-square"
-            onClick={onClick}
-          ></i>
+          <i className="fa-regular fa-pen-to-square" onClick={onClick}></i>
           <h4 className="ct_blue_text ct_fw_600 mx-auto ct_fs_16">
             {`Flash Card ${card?.id}`}
           </h4>
@@ -25,16 +22,16 @@ const FlashCard = ({ card, index, onClick }) => {
             <>
               <p className="ct_fw_600 mb-0">{card?.question}</p>
               <div className="mt-5">
-                <div className="row mt-2">
+                <div className="ct_flash_card_2_col mt-2">
                   {card?.options.map((option, index) => (
-                    <div className="col-md-6 mb-2" key={index}>
+                    <div className=" mb-2" key={index}>
                       <div>
                         <input
                           className="radio-input"
                           name={`radio-group-${card?.id}`}
                           id={`radio${index}-${card?.id}`}
                           type="radio"
-                          defaultChecked={option?.correct_answer}
+                          checked={option?.correct_answer}
                         />
                         <label
                           className="radio-label"

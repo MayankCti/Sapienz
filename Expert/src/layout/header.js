@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { pageRoutes } from "../routes/path";
 import { clearAuth, getProfile } from "../utils/pip";
@@ -8,7 +8,8 @@ import { toggleChange } from "../redux/reducers/authReducer";
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isToggle } = useSelector((state) => state.authReducer);
+  const { isToggle } = useSelector((state) => state?.authReducer);
+
   const { user_name, expert_profile } = getProfile();
   return (
     <>
@@ -28,9 +29,7 @@ function Header() {
         <div className="ct_right_header_right">
           <div className="ct_language_selector">
             <img src="/assets/img/us.png" alt="" />
-            <select className="form-control">
-              <option value="English">English</option>
-            </select>
+            <span value="English">English</span>
           </div>
           <div className="ct_user_profile_head">
             <a
@@ -93,15 +92,15 @@ function Header() {
                   fill="#DC0202"
                 />
               </svg>
-              <h4 className="text-center mb-4 ct_fw_600">Log Our Account</h4>
+              <h4 className="text-center mb-4 ct_fw_600">Log Out Account</h4>
               <p className="text-center ct_grey_text">
                 Are you sure, you want to logout? once you logout <br /> you
-                need to login again,Are you Ok?
+                need to login again.
               </p>
               <div className="modal-footer border-0 justify-content-center">
                 <button
                   type="button"
-                  className="ct_outline_btn"
+                  className="ct_blue_btn py-2 h-auto"
                   data-bs-dismiss="modal"
                 >
                   Cancel
@@ -110,11 +109,12 @@ function Header() {
                   href="javascript:void(0)"
                   onClick={() => {
                     clearAuth();
+                    window.location.reload();
                     navigate(pageRoutes?.login);
                   }}
                   type="button"
                   data-bs-dismiss="modal"
-                  className=" bg-danger ct_outline_btn ct_blue_btn text-white justify-content-center"
+                  className=" bg-danger  ct_blue_btn text-white justify-content-center  py-2 h-auto"
                   style={{ borderColor: "rgb(220, 53, 69)" }}
                 >
                   Logout

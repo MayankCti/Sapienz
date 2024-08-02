@@ -11,6 +11,7 @@ import {
 import SapienzeLoader from "../components/Loader/SapienzeLoader";
 import { getCapitalization } from "../utils/pip";
 import { message } from "antd";
+import NoRecord from "../components/NoRecord";
 
 function AllMockTest() {
   const dispatch = useDispatch();
@@ -64,9 +65,9 @@ function AllMockTest() {
     <>
       <div className="ct_inner_dashbaord_main">
         <div className="ct_white_bg ">
-          <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
+          <div className="d-flex align-items-center justify-content-between gap-2 mb-4 flex-wrap">
             <h4 className="ct_fs_24  ct_fw_600">All Mock Test</h4>
-            <div className="d-flex align-items-center gap-3">
+            <div className="d-flex align-items-center gap-3  flex-wrap">
               <div className="ct_category_select_2">
                 Category :
                 <CategorySelect
@@ -78,7 +79,7 @@ function AllMockTest() {
               </div>
 
               <div className="ct_category_select_2">
-                Sorted by marks:
+                Sort by marks:
                 <select
                   onChange={(e) => setMarkFilter(e.target.value)}
                   value={markFilter}
@@ -103,17 +104,15 @@ function AllMockTest() {
               <thead>
                 <tr>
                   <th>Test name</th>
-                  <th>Category / Field</th>
-                  <th>Duration hh/mm</th>
+                  <th>Category</th>
+                  <th>Duration</th>
                   <th>Total Questions</th>
                   <th>Marks</th>
                   <th>Status</th>
                 </tr>
               </thead>
               <tbody>
-                {mockList?.length === 0 && (
-                  <div className="text-center py-4">No record found.</div>
-                )}
+                {mockList?.length === 0 && <NoRecord />}
                 {mockList?.length > 0 &&
                   mockList?.map((item, index) => {
                     return (

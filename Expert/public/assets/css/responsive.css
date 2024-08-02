@@ -17,6 +17,7 @@
         padding: 25px;
         border-radius: 15px;
     }
+
     .ct_login_form{
         max-width: 600px;
     }
@@ -59,11 +60,14 @@
         grid-template-columns: repeat(2,1fr);
         gap: 15px;
     }
+    .ct_login_tab{
+        justify-content: center;
+    }
 }
 @media screen and (max-width:767px){
-    .ct_right_header {
+    /* .ct_right_header {
         flex-direction: column;
-    }
+    } */
     .ct_right_header_left{
         width: 100%;
     }
@@ -113,5 +117,8 @@
     }
     .ct_right_header_right {
         gap: 15px;
+    }
+    .ct_flash_card_2_col{
+        grid-template-columns: repeat(1,1fr);
     }
 }

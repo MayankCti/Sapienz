@@ -66,7 +66,7 @@ function NewPassword() {
                         <input
                           type="password"
                           className="form-control ct_input"
-                          placeholder="Type your password here"
+                          placeholder="Enter password"
                         />
                         <i className="fa-regular fa-eye-slash ct_eye_top" />
                       </div>
@@ -87,14 +87,14 @@ function NewPassword() {
                         <input
                           type="password"
                           className="form-control ct_input"
-                          placeholder="Type your password here"
+                          placeholder="Enter password"
                         />
                         <i className="fa-regular fa-eye-slash ct_eye_top" />
                       </div>
                     </div>
                   </div>
                   <div className="mt-5">
-                    <button className="ct_blue_btn w-100">Continue</button>
+                    <button className="ct_blue_btn w-100 justify-content-center">Continue</button>
                   </div>
                   <p className="text-center mt-4">
                     Already have an account?{" "}
