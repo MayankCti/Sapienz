@@ -18,7 +18,7 @@ const SelectFlashCard = ({
   };
 
   return (
-    <div className={`col-xl-4 mb-4`}>
+    <div className={`col-xxl-4 col-lg-6 mb-4`}>
       <div
         className={`ct_flash_card pb-0 ${
           selectedIds?.includes(id) ? "ct_flash_card_active" : ""
@@ -45,9 +45,9 @@ const SelectFlashCard = ({
 
         {card?.flash_card_type == "Multi Options" ? (
           <div className="mt-5">
-            <div className="row mt-2">
+            <div className="ct_flash_card_2_col mt-2">
               {options?.map((opt, index) => (
-                <div className="col-md-6 mb-2" key={index}>
+                <div key={index}>
                   <div>
                     <input
                       className="radio-input"

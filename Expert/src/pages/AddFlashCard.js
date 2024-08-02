@@ -237,7 +237,7 @@ function AddFlashCard() {
                         {validator.message("answer", answer, "required")}
                       </div>
                     )}
-                    <div className="d-flex align-items-center gap-3">
+                    <div className="d-flex align-items-center gap-3 justify-content-center">
                       <div className="ms-4 d-flex align-items-center gap-3">
                         <button
                           type="submit"

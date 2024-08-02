@@ -92,15 +92,15 @@ function Header() {
                   fill="#DC0202"
                 />
               </svg>
-              <h4 className="text-center mb-4 ct_fw_600">Log Our Account</h4>
+              <h4 className="text-center mb-4 ct_fw_600">Log Out Account</h4>
               <p className="text-center ct_grey_text">
                 Are you sure, you want to logout? once you logout <br /> you
-                need to login again,Are you Ok?
+                need to login again.
               </p>
               <div className="modal-footer border-0 justify-content-center">
                 <button
                   type="button"
-                  className="ct_outline_btn"
+                  className="ct_blue_btn py-2 h-auto"
                   data-bs-dismiss="modal"
                 >
                   Cancel
@@ -114,7 +114,7 @@ function Header() {
                   }}
                   type="button"
                   data-bs-dismiss="modal"
-                  className=" bg-danger ct_outline_btn ct_blue_btn text-white justify-content-center"
+                  className=" bg-danger  ct_blue_btn text-white justify-content-center  py-2 h-auto"
                   style={{ borderColor: "rgb(220, 53, 69)" }}
                 >
                   Logout

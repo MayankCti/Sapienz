@@ -97,7 +97,7 @@ function ForgetPassword() {
                         className="d-flex align-items-center justify-content-between mb-3"
                       >
                         <span className="ct_fw_600 ct_fs_20">
-                          Email Address
+                          Email
                         </span>
                       </label>
                       <div className="position-relative">
@@ -108,7 +108,7 @@ function ForgetPassword() {
                           onBlur={handleBlur}
                           value={values?.email}
                           className="form-control ct_input"
-                          placeholder="Enter email"
+                          placeholder="Enter email address"
                         />
                         <ErrorMessage
                             errors={errors}
@@ -119,7 +119,7 @@ function ForgetPassword() {
                     </div>
                   </div>
                   <div className="mt-5">
-                    <button onClick={handleSubmit} type="submit" className="ct_blue_btn w-100">Continue</button>
+                    <button onClick={handleSubmit} type="submit" className="ct_blue_btn w-100 justify-content-center">Continue</button>
                   </div>
                   <p className="text-center mt-4">
                     Already have any account?{" "}

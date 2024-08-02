@@ -1,6 +1,7 @@
 {
   "name": "sapienze-by-mayank",
   "version": "0.1.0",
+  "homepage": "http://51.20.226.33/",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",

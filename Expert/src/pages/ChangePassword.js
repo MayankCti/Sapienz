@@ -7,10 +7,12 @@ import { changePasswordSchema } from "../utils/schema";
 import { useDispatch, useSelector } from "react-redux";
 import { expertChangePassword } from "../redux/actions/authActions";
 import SapienzeLoader from "../components/Loader/SapienzeLoader";
+import { getProfile } from "../utils/pip";
 
 function ChangePassword() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { user_name, admin_profile } = getProfile();
   const { isLoading } = useSelector((state) => state?.authReducer);
   const [eyes, setEyes] = useState({
     eye1: false,
@@ -73,12 +75,12 @@ function ChangePassword() {
                   <form onSubmit={handleSubmit} className="ps-md-4">
                     <div className="d-flex align-items-center gap-3">
                       <img
-                        src="/assets/img/user_profile.png"
+                        src={admin_profile ?? "/assets/img/user_profile.png"}
                         alt=""
                         className="ct_img_66"
                       />
                       <div>
-                        <h5 className="ct_fs_20 mb-1">Moni Roy</h5>
+                        <h5 className="ct_fs_20 mb-1">{user_name ?? ""}</h5>
                         <p className="mb-0">Admin</p>
                       </div>
                     </div>
@@ -184,7 +186,7 @@ function ChangePassword() {
                         type="submit"
                         href="javascript:void(0)"
                         onClick={handleSubmit}
-                        className="ct_blue_btn  py-3 ct_btn_h_48"
+                        className="ct_blue_btn  py-3 ct_btn_h_48 justify-content-center w-auto"
                       >
                         Update Password
                       </button>

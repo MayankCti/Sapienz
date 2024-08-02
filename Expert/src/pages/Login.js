@@ -26,7 +26,7 @@ function Login() {
   };
 
   if (isLoading) {
-    return <SapienzeLoader/>;
+    return <SapienzeLoader />;
   }
   return (
     <>
@@ -114,9 +114,7 @@ function Login() {
                             htmlFor=""
                             className="d-flex align-items-center justify-content-between mb-3"
                           >
-                            <span className="ct_fw_600 ct_fs_20">
-                              Enter your Password
-                            </span>
+                            <span className="ct_fw_600 ct_fs_20">Password</span>
                           </label>
                           <div className="position-relative">
                             <input
@@ -167,7 +165,7 @@ function Login() {
                         <button
                           onClick={handleSubmit}
                           type="submit"
-                          className="ct_blue_btn w-100"
+                          className="ct_blue_btn w-100 justify-content-center"
                         >
                           LogIn
                         </button>

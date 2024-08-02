@@ -57,7 +57,7 @@ function NewMockTest() {
       test_name,
       question_mark: `${question_mark}`,
       test_questions: selectedIds,
-      test_category : categoryId ?? categories[0]?.id
+      test_category: categoryId ?? categories[0]?.id,
     };
 
     const callback = (response) => {
@@ -121,6 +121,7 @@ function NewMockTest() {
                         </label>
                         <input
                           type="number"
+                          min={1}
                           value={question_mark}
                           onChange={(e) => setQuestion_mark(e.target.value)}
                           className="ct_input form-control"
@@ -129,20 +130,20 @@ function NewMockTest() {
                       </div>
                     </div>
                     <div className="col-md-12 mb-4">
-                          <div className="form-group">
-                            <label htmlFor="" className="mb-2 ct_fw_500">
-                              Category
-                              <span className="ct_required_text">*</span>
-                            </label>
-                            <CategorySelect
-                              isAll={false}
-                              className={"ct_input form-control"}
-                              options={categories}
-                              value={categoryId}
-                              onChange={setCategoryId}
-                            />
-                          </div>
-                        </div>
+                      <div className="form-group">
+                        <label htmlFor="" className="mb-2 ct_fw_500">
+                          Category
+                          <span className="ct_required_text">*</span>
+                        </label>
+                        <CategorySelect
+                          isAll={false}
+                          className={"ct_input form-control"}
+                          options={categories}
+                          value={categoryId}
+                          onChange={setCategoryId}
+                        />
+                      </div>
+                    </div>
                     <div className="col-md-12 mb-4">
                       <div className="form-group">
                         <label htmlFor="" className="mb-2 ct_fw_500">
@@ -156,7 +157,7 @@ function NewMockTest() {
                         />
                       </div>
                     </div>
-                    <div className="d-flex align-items-center gap-3">
+                    <div className="d-flex align-items-center gap-3 justify-content-center">
                       <div className="ms-4 d-flex align-items-center gap-3">
                         <button
                           type="submit"
@@ -174,7 +175,7 @@ function NewMockTest() {
           </div>
         </div>
         {/* Flash card list and filter */}
-        <div className={`ct_white_bg p-4 `}>
+        <div className={`ct_white_bg p-4 mt-5`}>
           <div className="d-flex align-items-center justify-content-between gap-2 mb-4 flex-wrap">
             <h4 className="ct_fs_24  ct_fw_600 mb-0">Choose Question</h4>
             <div className="d-flex align-items-center gap-3">
@@ -198,7 +199,7 @@ function NewMockTest() {
                 <SelectFlashCard
                   key={card?.id}
                   card={card}
-                  index={index}
+                  index={index + 1}
                   id={card?.id}
                   selectedIds={selectedIds}
                   setSelectedIds={setSelectedIds}

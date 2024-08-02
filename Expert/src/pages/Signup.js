@@ -179,7 +179,7 @@ function Signup() {
                         </div>
                       </div>
                       <div className="mt-5">
-                        <button className="ct_blue_btn w-100">Register</button>
+                        <button className="ct_blue_btn w-100 justify-content-center">Register</button>
                       </div>
                       <p className="text-center mt-4">
                         Already have any account?{" "}

@@ -16,7 +16,7 @@ const Expert = () => {
 
   if (!isLogin) {
     return (
-      <Router basename="/">
+      <Router basename="/expert">
         <Routes>
           {expertRoutes?.map((item, i) => (
             <Route
@@ -39,7 +39,7 @@ const Expert = () => {
   }
   return (
     <>
-      <Router basename="/">
+      <Router basename="/expert">
         <main className={`${isToggle ? "ct_collapsed_sidebar" : ""}`}>
           <Sidebar />
           <div className="ct_right_content">

@@ -113,8 +113,8 @@ function StudentDetails() {
           ) : (
             <NoRecord />
           )}
-          <div className="table-responsive mt-4">
-            <h4 className="ct_fs_24 ps-4 ct_fw_600 mb-3">Given Test Details</h4>
+            <h4 className="ct_fs_24 ps-4 ct_fw_600 mb-3  mt-4">Given Test Details</h4>
+          <div className="table-responsive">
             <table className="table ct_custom_table">
               <thead>
                 <tr>

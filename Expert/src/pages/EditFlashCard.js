@@ -290,8 +290,8 @@ function EditFlashCard() {
                         {validator.message("answer", answer, "required")}
                       </div>
                     )}
-                    <div className="d-flex align-items-center gap-3">
-                      <div className="ms-4 d-flex align-items-center gap-3">
+                    <div className="d-flex align-items-center gap-3 justify-content-center">
+                      <div className="ms-4 d-flex align-items-center gap-3 ">
                         <button
                           type="submit"
                           className="ct_blue_btn py-3 ct_btn_h_48"

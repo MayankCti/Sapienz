@@ -65,9 +65,9 @@ function AllMockTest() {
     <>
       <div className="ct_inner_dashbaord_main">
         <div className="ct_white_bg ">
-          <div className="d-flex align-items-center justify-content-between gap-2 mb-4">
+          <div className="d-flex align-items-center justify-content-between gap-2 mb-4 flex-wrap">
             <h4 className="ct_fs_24  ct_fw_600">All Mock Test</h4>
-            <div className="d-flex align-items-center gap-3">
+            <div className="d-flex align-items-center gap-3  flex-wrap">
               <div className="ct_category_select_2">
                 Category :
                 <CategorySelect
