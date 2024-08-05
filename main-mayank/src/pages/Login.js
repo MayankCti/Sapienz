@@ -38,7 +38,7 @@ function Login() {
                 <div className="mb-5">
                   <a
                     href="javascript:void(0)"
-                    onClick={()=>navigate(-1)}
+                    onClick={() => navigate(-1)}
                     className="d-flex align-items-center gap-3 text-dark ct_fw_600 ct_fs_20"
                   >
                     <i className="fa-solid fa-chevron-left ct_back_login" />
@@ -67,10 +67,10 @@ function Login() {
                           <h2 className="ct_fs_35 ct_fw_600 ct_mb_30">
                             Login{" "}
                           </h2>
-                          <p className="ct_light_text mb-0">
+                          {/* <p className="ct_light_text mb-0">
                             Lorem Ipsum is simply dummy text of the printing and
                             typesetting industry.
-                          </p>
+                          </p> */}
                         </div>
                         <div className="form-group mb-4">
                           <label

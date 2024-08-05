@@ -5,9 +5,17 @@ import { BASE_URL } from "../../routes/endPoints";
 import { clearAuth, getAuth } from "../../utils/pip";
 
 export const API_REQUEST = async (props) => {
-  const { BASE =BASE_URL, url, method, data, headers, params, isErrorToast = true } = props;
+  const {
+    BASE = BASE_URL,
+    url,
+    method,
+    data,
+    headers,
+    params,
+    isErrorToast = true,
+  } = props;
   const token = getAuth();
-  
+
   const requestOptions = {
     url: BASE + url,
     method,
@@ -33,7 +41,7 @@ export const API_REQUEST = async (props) => {
         if (error?.response?.data?.status == 401) {
           toast.error(error?.response?.data?.message);
           clearAuth();
-          window.location.href = pageRoutes?.login;
+          window.location.href = "/expert" + pageRoutes?.login;
           return;
         }
         toast.error(error?.response?.data?.message);
