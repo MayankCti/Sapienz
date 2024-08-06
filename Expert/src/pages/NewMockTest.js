@@ -11,6 +11,7 @@ import {
 } from "../redux/actions/flashCardActions";
 import SapienzeLoader from "../components/Loader/SapienzeLoader";
 import CategorySelect from "../components/formInputs/CategorySelect";
+import TimePicker from "react-time-picker";
 
 function NewMockTest() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function NewMockTest() {
   const { categories } = useSelector((state) => state?.flashCardReducer);
   const [statusFilter, setStatusFilter] = useState("");
 
-  const [test_duration, setTest_duration] = useState(null);
+  const [test_duration, setTest_duration] = useState("00:00");
   const [test_name, setTest_name] = useState(null);
   const [question_mark, setQuestion_mark] = useState(null);
 
@@ -46,6 +47,11 @@ function NewMockTest() {
   const handleAddMockTest = (e) => {
     e.preventDefault();
     if (!test_name) return message?.error("Please enter test name");
+    if (test_duration) {
+      if (test_duration == "00:00") {
+        return message?.error("Please enter duration");
+      }
+    }
     if (!test_duration) return message?.error("Please enter duration");
     if (!question_mark)
       return message?.error("Please enter each question mark");
@@ -105,12 +111,23 @@ function NewMockTest() {
                           Duration hh/mm{" "}
                           <span className="ct_required_text">*</span>
                         </label>
-                        <input
+                        <TimePicker
+                          className=" form-control ct_time_picker12"
+                          onWheel={() => document.activeElement.blur()}
+                          onChange={setTest_duration}
+                          value={test_duration}
+                          format="HH:mm"
+                          clearIcon={null}
+                          clockIcon={null}
+                        />
+
+                        {/* <input
                           type="time"
-                          className="ct_input form-control"
+                          className="ct_input form-control without_ampm"
                           value={test_duration}
                           onChange={(e) => setTest_duration(e.target.value)}
-                        />
+                        /> */}
+                        {console.log({ test_duration })}
                       </div>
                     </div>
                     <div className="col-md-12 mb-4">
@@ -121,6 +138,7 @@ function NewMockTest() {
                         </label>
                         <input
                           type="number"
+                          onWheel={() => document.activeElement.blur()}
                           min={1}
                           value={question_mark}
                           onChange={(e) => setQuestion_mark(e.target.value)}
@@ -147,7 +165,7 @@ function NewMockTest() {
                     <div className="col-md-12 mb-4">
                       <div className="form-group">
                         <label htmlFor="" className="mb-2 ct_fw_500">
-                          Test Questions
+                          No Of Questions
                           <span className="ct_required_text">*</span>
                         </label>
                         <input

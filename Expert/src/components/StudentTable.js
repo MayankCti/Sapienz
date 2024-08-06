@@ -18,7 +18,7 @@ const StudentTable = () => {
           <td>
             <div className="d-flex align-items-center gap-2">
               <img
-                src={student?.user_profile ?? "/assets/img/user_profile.png"}
+                src={student?.user_profile ?? "http://192.168.29.100:4002/profile/profile_images1722939937833.jpg"}
                 alt=""
                 className="ct_img_36"
               />

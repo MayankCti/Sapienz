@@ -157,7 +157,7 @@ function Student() {
                               <img
                                 src={
                                   student?.user_profile ??
-                                  "/assets/img/user_profile.png"
+                                  "http://192.168.29.100:4002/profile/profile_images1722939937833.jpg"
                                 }
                                 alt={""}
                                 className="ct_img_109"

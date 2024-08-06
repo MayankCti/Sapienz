@@ -73,17 +73,6 @@ function ChangePassword() {
                   handleSubmit,
                 }) => (
                   <form onSubmit={handleSubmit} className="ps-md-4">
-                    <div className="d-flex align-items-center gap-3">
-                      <img
-                        src={admin_profile ?? "/assets/img/user_profile.png"}
-                        alt=""
-                        className="ct_img_66"
-                      />
-                      <div>
-                        <h5 className="ct_fs_20 mb-1">{user_name ?? ""}</h5>
-                        <p className="mb-0">Admin</p>
-                      </div>
-                    </div>
                     <div className="row mt-4">
                       <div className="col-md-12 mb-4">
                         <div className="form-group">

@@ -43,7 +43,7 @@ function StudentDetails() {
                     <div className="col-xxl-4 mb-4 mb-xxl-0">
                       <div className="d-flex align-items-center gap-3 flex-wrap">
                         <img
-                          src="/assets/img/user_profile.png"
+                          src= {studentDetail?.student_profile ?? "http://192.168.29.100:4002/profile/profile_images1722939937833.jpg"}
                           alt=""
                           className="ct_img_148"
                         />

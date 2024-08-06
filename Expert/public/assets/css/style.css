@@ -8,7 +8,15 @@
     font-family: "Roboto", sans-serif;
     scroll-behavior: smooth;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
+input[type=number] {
+  -moz-appearance: textfield;
+}
 :Root{
     --blue: #0A2FB6;
     --lightblue : #CFDCFF;

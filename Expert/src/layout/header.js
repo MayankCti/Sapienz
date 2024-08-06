@@ -37,7 +37,7 @@ function Header() {
               onClick={() => navigate(pageRoutes?.profile)}
             >
               <img
-                src={expert_profile ?? "/assets/img/user_profile.png"}
+                src={expert_profile ?? "http://192.168.29.100:4002/profile/profile_images1722939937833.jpg"}
                 alt=""
                 className="ct_img_44"
               />

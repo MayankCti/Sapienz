@@ -55,3 +55,42 @@
     border-radius: 100%;
     z-index: -1;
   }
+
+  input[type=time]::-webkit-datetime-edit-ampm-field {
+    display: none;
+  }
+
+
+
+input[type="time"]::-webkit-datetime-edit-ampm-field {
+    display: none;
+}
+input[type="time"]::-moz-datetime-edit-ampm-field {
+    display: none;
+}
+
+input[type="time"]::-ms-datetime-edit-ampm-field {
+    display: none;
+}
+
+.ct_time_picker12 .react-time-picker__inputGroup {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  gap: 5px;
+}
+.ct_time_picker12 input.react-time-picker__inputGroup__input {
+  width: 50% !important;
+  border: 1px solid transparent;
+  /* padding: 0px 10px; */
+  height: 48px;
+  border-radius: 4px;
+}
+.ct_time_picker12 input.react-time-picker__inputGroup__input:focus{
+  outline: none;
+}
+
+.ct_time_picker12 {
+  border-color: #B1B1B1;
+}

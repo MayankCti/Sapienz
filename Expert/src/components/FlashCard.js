@@ -8,7 +8,7 @@ const FlashCard = ({ card, index, onClick }) => {
         <div className="ct_flash_card pb-0">
           <i className="fa-regular fa-pen-to-square" onClick={onClick}></i>
           <h4 className="ct_blue_text ct_fw_600 mx-auto ct_fs_16">
-            {`Flash Card ${card?.id}`}
+            {`Flash Card ${index}`}
           </h4>
           <div className="d-flex align-items-center justify-content-between gap-2 my-3 ">
             <p className="mb-0 ct_fw_600 ct_blue_text ct_fs_14">
