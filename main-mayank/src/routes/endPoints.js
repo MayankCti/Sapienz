@@ -1,8 +1,8 @@
 // LOCAL
-// export const BASE_URL = "http://192.168.29.100:4002/api/admin_router/";
+export const BASE_URL = "http://192.168.29.100:4002/api/admin_router/";
 
 // LIVE
-export const BASE_URL = "http://51.20.226.33:4000/api/admin_router/";
+// export const BASE_URL = "http://51.20.226.33:4000/api/admin_router/";
 
 // authentication
 export const signupAPI = "signup";

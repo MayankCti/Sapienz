@@ -12,9 +12,9 @@ import { getProfile } from "../utils/pip";
 function EditProfile() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {  isLoading } = useSelector((state) => state?.authReducer);
+  const { isLoading } = useSelector((state) => state?.authReducer);
   const [imagePreview, setImagePreview] = useState(null);
-  const data = getProfile()
+  const data = getProfile();
   const profile = data;
   const [profile_images, setProfileImages] = useState(profile?.expert_profile);
   const [initialState, setInitialState] = useState({
@@ -87,7 +87,10 @@ function EditProfile() {
                 }) => (
                   <form onSubmit={handleSubmit} className="ps-md-4">
                     <div className="d-flex align-items-center gap-3">
-                    <label for="profile_images" style={{ cursor: "pointer" ,position:"relative"}}>
+                      <label
+                        for="profile_images"
+                        style={{ cursor: "pointer", position: "relative" }}
+                      >
                         <input
                           type="file"
                           onChange={(event) => {
@@ -119,14 +122,6 @@ function EditProfile() {
                           </>
                         )}
                       </label>
-
-
-                      <div>
-                        <h5 className="ct_fs_20 mb-1">
-                          {profile?.user_name ?? ""}
-                        </h5>
-                        <p className="mb-0">Admin</p>
-                      </div>
                     </div>
                     <ErrorMessage
                       errors={errors}

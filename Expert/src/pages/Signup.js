@@ -33,7 +33,12 @@ function Signup() {
     <>
       <section className="">
         <div className="container-fluid">
-          <div className="row">
+          <div
+            className="row"
+            // onClick={() => {
+            //   window.location.href = "/admin/login";
+            // }}
+          >
             <div className="col-md-12">
               <div className="text-end ct_admin_login_btn_fixed">
                 <a href="javascript:void(0)">
@@ -47,23 +52,22 @@ function Signup() {
             <div className="col-lg-7 mb-4 mb-lg-0">
               <div className="ct_login_form">
                 <div className="ct_login_tab ct_mb_50">
-                  <button className="ct_outline_btn ">
-                    <a
-                      href="javascript:void(0)"
-                      onClick={() => {
-                        navigate("/student/login");
-                      }}
-                    >
-                      Student
-                    </a>
+                  <button
+                    className="ct_outline_btn "
+                    onClick={() => {
+                      {
+                        window.location.href = "/login";
+                      }
+                    }}
+                  >
+                    <a href="javascript:void(0)">Student</a>
                   </button>
-                  <button className="ct_outline_btn ct_login_tab_active">
-                    <a
-                      href="javascript:void(0)"
-                      onClick={() => navigate(pageRoutes?.login)}
-                    >
-                      Expert
-                    </a>
+                  <button
+                    className="ct_outline_btn ct_login_tab_active"
+                    href="javascript:void(0)"
+                    onClick={() => navigate(pageRoutes?.login)}
+                  >
+                    <a>Expert</a>
                   </button>
                 </div>
                 <Formik
@@ -87,10 +91,10 @@ function Signup() {
                           <h2 className="ct_fs_35 ct_fw_600 ct_mb_30">
                             Expert Sign up{" "}
                           </h2>
-                          <p className="ct_light_text mb-0">
+                          {/* <p className="ct_light_text mb-0">
                             Lorem Ipsum is simply dummy text of the printing and
                             typesetting industry.
-                          </p>
+                          </p> */}
                         </div>
                         <div className="form-group mb-4">
                           <label
@@ -179,7 +183,9 @@ function Signup() {
                         </div>
                       </div>
                       <div className="mt-5">
-                        <button className="ct_blue_btn w-100 justify-content-center">Register</button>
+                        <button className="ct_blue_btn w-100 justify-content-center">
+                          Register
+                        </button>
                       </div>
                       <p className="text-center mt-4">
                         Already have any account?{" "}

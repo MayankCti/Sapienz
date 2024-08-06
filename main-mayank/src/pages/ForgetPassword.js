@@ -54,10 +54,10 @@ function ForgetPassword() {
                           <h2 className="ct_fs_35 ct_fw_600 ct_mb_30">
                             Forgot Password{" "}
                           </h2>
-                          <p className="ct_light_text mb-0">
+                          {/* <p className="ct_light_text mb-0">
                             Lorem Ipsum is simply dummy text of the printing and
                             typesetting industry.
-                          </p>
+                          </p> */}
                         </div>
                         <div className="form-group mb-4">
                           <label

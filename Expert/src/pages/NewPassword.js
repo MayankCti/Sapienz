@@ -10,7 +10,10 @@ function NewPassword() {
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-12">
-              <div className="text-end ct_admin_login_btn_fixed">
+              <div
+                className="text-end ct_admin_login_btn_fixed"
+                // onClick={()=>{window.location.href = "/admin/login"}}
+              >
                 <a href="javascript:void(0)">
                   Admin Login
                   <i className="fa-solid fa-id-badge ms-2" />
@@ -26,7 +29,9 @@ function NewPassword() {
                     <a
                       href="javascript:void(0)"
                       onClick={() => {
-                        navigate("/student/login");
+                        {
+                          window.location.href = "/login";
+                        }
                       }}
                     >
                       Student
@@ -94,7 +99,9 @@ function NewPassword() {
                     </div>
                   </div>
                   <div className="mt-5">
-                    <button className="ct_blue_btn w-100 justify-content-center">Continue</button>
+                    <button className="ct_blue_btn w-100 justify-content-center">
+                      Continue
+                    </button>
                   </div>
                   <p className="text-center mt-4">
                     Already have an account?{" "}

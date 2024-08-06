@@ -32,7 +32,12 @@ function Login() {
     <>
       <section className="">
         <div className="container-fluid">
-          <div className="row">
+          <div
+            className="row"
+            // onClick={() => {
+            //   window.location.href = "/admin/login";
+            // }}
+          >
             <div className="col-md-12">
               <div className="text-end ct_admin_login_btn_fixed">
                 <a href="javascript:void(0)">
@@ -47,7 +52,9 @@ function Login() {
               <div className="ct_login_form">
                 <div className="ct_login_tab ct_mb_50">
                   <button
-                    onClick={() => navigate("/student/login")}
+                    onClick={() => {
+                      window.location.href = "/login";
+                    }}
                     className={`ct_outline_btn`}
                   >
                     <a href="javascript:void(0)">Student</a>
@@ -80,10 +87,10 @@ function Login() {
                           <h2 className="ct_fs_35 ct_fw_600 ct_mb_30">
                             Expert Login{" "}
                           </h2>
-                          <p className="ct_light_text mb-0">
+                          {/* <p className="ct_light_text mb-0">
                             Lorem Ipsum is simply dummy text of the printing and
                             typesetting industry.
-                          </p>
+                          </p> */}
                         </div>
                         <div className="form-group mb-4">
                           <label
